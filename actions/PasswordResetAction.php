@@ -4,6 +4,7 @@ namespace yii2mod\user\actions;
 use Yii;
 use yii\base\Action;
 use yii\web\BadRequestHttpException;
+use yii\base\InvalidParamException;
 use yii2mod\user\models\ResetPasswordForm;
 
 /**

@@ -24,11 +24,12 @@ use yii\web\IdentityInterface;
 class BaseUserModel extends ActiveRecord implements IdentityInterface
 {
     /**
-     *
+     * Deleted Status
      */
     const STATUS_DELETED = 0;
+
     /**
-     *
+     * Active Status
      */
     const STATUS_ACTIVE = 1;
 

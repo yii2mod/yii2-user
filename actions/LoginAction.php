@@ -16,7 +16,7 @@ class LoginAction extends Action
     /**
      * @var string
      */
-    public $view = '@vendor/yii2mod/user/views/login';
+    public $view = '@vendor/yii2mod/yii2-user/views/login';
 
     /**
      * @return string
@@ -28,19 +28,14 @@ class LoginAction extends Action
         }
         $model = new LoginForm();
         $load = $model->load(\Yii::$app->request->post());
+
         if (\Yii::$app->request->isAjax) {
             \Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
 
         if ($load && $model->login()) {
-            if(\Yii::$app->getUser()->can('salesRep')) {
-                return \Yii::$app->response->redirect('/admin');
-            }
-            else {
-                return $this->controller->goBack();
-            }
-
+            return $this->controller->goBack();
         } else {
             return $this->controller->render($this->view, [
                 'model' => $model,

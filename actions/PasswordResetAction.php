@@ -12,7 +12,7 @@ use yii2mod\user\models\ResetPasswordForm;
  */
 class PasswordResetAction extends Action
 {
-    public $view = '@vendor/yii2mod/user/views/resetPassword';
+    public $view = '@vendor/yii2mod/yii2-user/views/resetPassword';
 
     /**
      * @param $token
@@ -30,7 +30,6 @@ class PasswordResetAction extends Action
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
             Yii::$app->getSession()->setFlash('success', 'New password was saved.');
-
             return $this->controller->goHome();
         }
 

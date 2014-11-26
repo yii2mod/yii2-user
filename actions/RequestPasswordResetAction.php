@@ -13,7 +13,7 @@ class RequestPasswordResetAction extends Action
     /**
      * @var string
      */
-    public $view = '@vendor/yii2mod/user/views/requestPasswordResetToken';
+    public $view = '@vendor/yii2mod/yii2-user/views/requestPasswordResetToken';
 
     /**
      * @return string|\yii\web\Response

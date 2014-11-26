@@ -10,7 +10,7 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist yii2mod/user "*"
+php composer.phar require --prefer-dist yii2mod/yii2-user "*"
 ```
 
 or add

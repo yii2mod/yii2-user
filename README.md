@@ -16,7 +16,7 @@ php composer.phar require --prefer-dist yii2mod/user "*"
 or add
 
 ```
-"yii2mod/user": "*"
+"yii2mod/yii2-user": "*"
 ```
 
 to the require section of your `composer.json` file.

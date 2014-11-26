@@ -17,8 +17,8 @@ use yii\web\IdentityInterface;
  * @property string  $email
  * @property string  $authKey
  * @property integer $status
- * @property integer $dateCreated
- * @property integer $dateUpdated
+ * @property integer $createdAt
+ * @property integer $updatedAt
  * @property string  $password write-only password
  */
 class BaseUserModel extends ActiveRecord implements IdentityInterface
@@ -52,8 +52,8 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
             'timestamp' => [
                 'class' => 'yii\behaviors\TimestampBehavior',
                 'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['dateCreated', 'dateUpdated'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['dateUpdated'],
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['createdAt', 'updatedAt'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updatedAt'],
                 ],
             ],
         ];

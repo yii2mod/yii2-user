@@ -8,7 +8,11 @@
         {
             "name": "Dmitry Semenov",
             "email": "disemx@gmail.com"
-        }
+        },
+        {
+            "name": "Igor Chepurnoy",
+            "email": "igorzfort@gmail.com"
+        },
     ],
     "autoload": {
         "psr-4": {

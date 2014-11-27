@@ -12,7 +12,7 @@
         {
             "name": "Igor Chepurnoy",
             "email": "igorzfort@gmail.com"
-        },
+        }
     ],
     "autoload": {
         "psr-4": {

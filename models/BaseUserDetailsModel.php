@@ -9,13 +9,11 @@ use yii\db\ActiveRecord;
  * This is the model class for table "UserDetails".
  *
  * @property integer $userId
- *
- * @property User $user
  */
 class BaseUserDetailsModel extends ActiveRecord
 {
     /**
-     * @inheritdoc
+     * Declares the name of the database table associated with this AR class.
      */
     public static function tableName()
     {
@@ -23,7 +21,9 @@ class BaseUserDetailsModel extends ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * Returns the validation rules for attributes.
+     *
+     * Validation rules are used by [[validate()]] to check if attribute values are valid.
      */
     public function rules()
     {
@@ -34,7 +34,8 @@ class BaseUserDetailsModel extends ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * Returns the text label for the specified attribute.
+     * If the attribute looks like `relatedModel.attribute`, then the attribute will be received from the related model.
      */
     public function attributeLabels()
     {
@@ -43,11 +44,4 @@ class BaseUserDetailsModel extends ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(UserModel::className(), ['id' => 'userId']);
-    }
 }

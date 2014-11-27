@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php echo $form->field($model, 'password')->passwordInput() ?>
             <?php echo $form->field($model, 'rememberMe')->checkbox() ?>
             <div style="color:#999;margin:1em 0">
-                If you forgot your password you can <?php echo Html::a('reset it', ['user/request-password-reset']) ?>.
+                If you forgot your password you can <?php echo Html::a('reset it', ['site/request-password-reset']) ?>.
             </div>
             <div class="form-group">
                 <?php echo Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>

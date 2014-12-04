@@ -19,6 +19,7 @@ use yii\web\IdentityInterface;
  * @property integer $status
  * @property integer $createdAt
  * @property integer $updatedAt
+ * @property integer $lastLogin
  * @property string  $password write-only password
  */
 class BaseUserModel extends ActiveRecord implements IdentityInterface
@@ -60,13 +61,17 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @inheritdoc
+     * Returns the validation rules for attributes.
+     *
+     * Validation rules are used by [[validate()]] to check if attribute values are valid.
+     * Child classes may override this method to declare different validation rules.
      */
     public function rules()
     {
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            [['lastLogin'], 'integer', 'integerOnly' => true],
         ];
     }
 
@@ -209,5 +214,14 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->passwordResetToken = null;
+    }
+
+    /**
+     * Update last login
+     */
+    public function updateLastLogin()
+    {
+        $this->lastLogin = time();
+        $this->update();
     }
 }

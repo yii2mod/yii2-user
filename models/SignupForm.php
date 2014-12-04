@@ -61,6 +61,7 @@ class SignupForm extends Model
             $user->email = $this->email;
             $user->setPassword($this->password);
             $user->generateAuthKey();
+            $user->lastLogin = time();
             if($user->save()) {
                 $userDetailsModels = new BaseUserDetailsModel();
                 $userDetailsModels->userId = $user->primaryKey;

@@ -35,6 +35,7 @@ class LoginAction extends Action
         }
 
         if ($load && $model->login()) {
+            $model->getUser()->updateLastLogin();
             return $this->controller->goBack();
         } else {
             return $this->controller->render($this->view, [

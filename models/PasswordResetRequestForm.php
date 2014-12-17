@@ -1,22 +1,27 @@
 <?php
+
 namespace yii2mod\user\models;
 
 use app\models\UserModel;
 use yii\base\Model;
 
 /**
- * Password reset request form
+ * Class PasswordResetRequestForm
+ * @package yii2mod\user\models
  */
 class PasswordResetRequestForm extends Model
 {
+
     /**
-     * Email
-     * @var
+     * @var string email field for password reset.
      */
     public $email;
 
     /**
-     * @inheritdoc
+     * Returns the validation rules for attributes.
+     *
+     * Validation rules are used by [[validate()]] to check if attribute values are valid.
+     * Child classes may override this method to declare different validation rules.
      */
     public function rules()
     {
@@ -26,9 +31,13 @@ class PasswordResetRequestForm extends Model
             ['email', 'email'],
             ['email', 'exist',
                 'targetClass' => \Yii::$app->user->identityClass,
-                'filter' => ['status' => UserModel::STATUS_ACTIVE],
-                'message' => 'There is no user with such email.'
+                'message' => 'Email not valid.'
             ],
+            ['email', 'exist',
+                'targetClass' => \Yii::$app->user->identityClass,
+                'filter' => ['status' => UserModel::STATUS_ACTIVE],
+                'message' => 'Your account has been deactivated, please contact support for details.'
+            ]
         ];
     }
 

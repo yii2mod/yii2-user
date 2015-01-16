@@ -5,7 +5,6 @@ use Yii;
 use yii\base\Action;
 use yii\web\BadRequestHttpException;
 use yii\base\InvalidParamException;
-use yii2mod\user\models\ResetPasswordForm;
 
 /**
  * Class LoginAction
@@ -13,7 +12,21 @@ use yii2mod\user\models\ResetPasswordForm;
  */
 class PasswordResetAction extends Action
 {
+    /**
+     * @var string view path
+     */
     public $view = '@vendor/yii2mod/yii2-user/views/resetPassword';
+
+    /**
+     * @var string reset password model class
+     */
+    public $modelClass = 'yii2mod\user\models\ResetPasswordForm';
+
+    /**
+     * @var string success message after resetPassword
+     */
+    public $successMessage = 'New password was saved.';
+
 
     /**
      * @param $token
@@ -24,13 +37,13 @@ class PasswordResetAction extends Action
     public function run($token)
     {
         try {
-            $model = new ResetPasswordForm($token);
+            $model = new $this->modelClass($token);
         } catch (InvalidParamException $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->getSession()->setFlash('success', 'New password was saved.');
+            Yii::$app->getSession()->setFlash('success', $this->successMessage);
             return $this->controller->goHome();
         }
 

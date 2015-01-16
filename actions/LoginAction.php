@@ -1,11 +1,10 @@
 <?php
-namespace yii2mod\user\actions;
 
+namespace yii2mod\user\actions;
 
 use yii\base\Action;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
-use yii2mod\user\models\LoginForm;
 
 /**
  * Class LoginAction
@@ -19,6 +18,11 @@ class LoginAction extends Action
     public $view = '@vendor/yii2mod/yii2-user/views/login';
 
     /**
+     * @var string Login Form className
+     */
+    public $modelClass = 'yii2mod\user\models\LoginForm';
+
+    /**
      * @return string
      */
     public function run()
@@ -26,7 +30,7 @@ class LoginAction extends Action
         if (!\Yii::$app->user->isGuest) {
             return $this->controller->goHome();
         }
-        $model = new LoginForm();
+        $model = new $this->modelClass;
         $load = $model->load(\Yii::$app->request->post());
 
         if (\Yii::$app->request->isAjax) {

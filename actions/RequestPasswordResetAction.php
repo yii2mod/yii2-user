@@ -1,7 +1,6 @@
 <?php
 namespace yii2mod\user\actions;
 
-use yii2mod\user\models\PasswordResetRequestForm;
 use yii\base\Action;
 
 /**
@@ -16,11 +15,16 @@ class RequestPasswordResetAction extends Action
     public $view = '@vendor/yii2mod/yii2-user/views/requestPasswordResetToken';
 
     /**
+     * @var string password reset request form class
+     */
+    public $modelClass = 'yii2mod\user\models\PasswordResetRequestForm';
+
+    /**
      * @return string|\yii\web\Response
      */
     public function run()
     {
-        $model = new PasswordResetRequestForm();
+        $model = new $this->modelClass;
         if ($model->load(\Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
                 \Yii::$app->getSession()->setFlash('success', 'Check your email for further instructions.');

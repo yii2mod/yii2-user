@@ -1,14 +1,14 @@
 <?php
+
 namespace yii2mod\user\models;
 
-use app\models\UserDetailsModel;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
- * User model
+ * Class BaseUserModel
  *
  * @property integer $id
  * @property string  $username
@@ -80,7 +80,7 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
      */
     public function getUserDetails()
     {
-        return $this->hasOne(UserDetailsModel::className(), ['userId' => 'id']);
+        return $this->hasOne(BaseUserDetailsModel::className(), ['userId' => 'id']);
     }
 
     /**
@@ -114,9 +114,8 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
     /**
      * Finds user by email
      *
-     * @param  string email
-     *
-     * @return static|null
+     * @param $email
+     * @return null|static
      */
     public static function findByEmail($email)
     {

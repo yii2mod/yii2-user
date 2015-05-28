@@ -100,7 +100,7 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Finds user by username
+     * Finds user (with active status) by username
      *
      * @param  string $username
      *

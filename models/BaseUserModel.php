@@ -220,7 +220,6 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
      */
     public function updateLastLogin()
     {
-        $this->lastLogin = time();
-        $this->update();
+        $this->updateAttributes(['lastLogin' => time()]);
     }
 }

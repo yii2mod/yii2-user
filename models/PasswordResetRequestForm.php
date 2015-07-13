@@ -31,7 +31,7 @@ class PasswordResetRequestForm extends Model
             ['email', 'email'],
             ['email', 'exist',
                 'targetClass' => \Yii::$app->user->identityClass,
-                'message' => 'Email not valid.'
+                'message' => 'User with this email is not found.'
             ],
             ['email', 'exist',
                 'targetClass' => \Yii::$app->user->identityClass,

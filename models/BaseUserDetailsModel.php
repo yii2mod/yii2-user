@@ -17,7 +17,7 @@ class BaseUserDetailsModel extends ActiveRecord
      */
     public static function tableName()
     {
-        return 'UserDetails';
+        return '{{%UserDetails}}';
     }
 
     /**

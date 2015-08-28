@@ -1,18 +1,10 @@
 <?php
-use yii\db\Schema;
-use yii\db\Migration;
 
-/**
- * Init migrations
- * Class m1305267_201442_init_user
- * @author Igor Chepurnoy
- */
-class m1305267_201442_init_user extends Migration
+use yii\db\Migration;
+use yii\db\Schema;
+
+class m150828_085134_init_user_tables extends Migration
 {
-    /**
-     * Up
-     * @return bool|void
-     */
     public function up()
     {
         $tableOptions = null;
@@ -40,13 +32,20 @@ class m1305267_201442_init_user extends Migration
         ], $tableOptions);
     }
 
-    /**
-     * Down
-     * @return bool|void
-     */
     public function down()
     {
         $this->dropTable('{{%User}}');
         $this->dropTable('{{%UserDetails}}');
     }
+
+    /*
+    // Use safeUp/safeDown to run migration code within a transaction
+    public function safeUp()
+    {
+    }
+
+    public function safeDown()
+    {
+    }
+    */
 }

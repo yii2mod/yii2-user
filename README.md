@@ -29,3 +29,36 @@ If you use this extension separate from the [base template](https://github.com/y
 ```
 php yii migrate/up --migrationPath=@vendor/yii2mod/yii2-user/migrations
 ```
+
+Add to SiteController (or configure via `$route` param in urlManager):
+```php
+    /**
+     * @return array
+     */
+    public function actions()
+    {
+        return [
+            'login' => [
+                'class' => 'yii2mod\user\actions\LoginAction'
+            ],
+            'logout' => [
+                'class' => 'yii2mod\user\actions\LogoutAction'
+            ],
+            'signup' => [
+                'class' => 'yii2mod\user\actions\SignupAction'
+            ],
+            'request-password-reset' => [
+                'class' => 'yii2mod\user\actions\RequestPasswordResetAction'
+            ],
+            'password-reset' => [
+                'class' => 'yii2mod\user\actions\PasswordResetAction'
+            ],
+        ];
+    }
+```
+You can then access to this actions through the following URL:
+
+http://localhost/site/login
+http://localhost/site/request-password-reset
+http://localhost/site/signup
+http://localhost/site/logout

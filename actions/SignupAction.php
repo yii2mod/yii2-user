@@ -1,8 +1,8 @@
 <?php
+
 namespace yii2mod\user\actions;
 
 use yii\base\Action;
-use yii2mod\user\models\SignupForm;
 
 /**
  * Class SignupAction
@@ -18,12 +18,17 @@ class SignupAction extends Action
     public $view = '@vendor/yii2mod/yii2-user/views/signup';
 
     /**
+     * @var string signup form class
+     */
+    public $modelClass = 'yii2mod\user\models\SignupForm';
+
+    /**
      * Run func
      * @return string
      */
     public function run()
     {
-        $model = new SignupForm();
+        $model = \Yii::createObject($this->modelClass);
         if ($model->load(\Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (\Yii::$app->getUser()->login($user)) {

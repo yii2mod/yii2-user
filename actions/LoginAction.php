@@ -23,10 +23,18 @@ class LoginAction extends Action
     public $modelClass = 'yii2mod\user\models\LoginForm';
 
     /**
+     * @var string layout the name of the layout to be applied to this view.
+     */
+    public $layout;
+
+    /**
      * @return string
      */
     public function run()
     {
+        if ($this->layout !== null) {
+            $this->controller->layout = $this->layout;
+        }
         if (!\Yii::$app->user->isGuest) {
             return $this->controller->goHome();
         }

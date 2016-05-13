@@ -1,8 +1,9 @@
 User module
 ===========
-User module
-* [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/yii2mod/yii2-user/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/yii2mod/yii2-user/?branch=master)
-* [![Build Status](https://scrutinizer-ci.com/g/yii2mod/yii2-user/badges/build.png?b=master)](https://scrutinizer-ci.com/g/yii2mod/yii2-user/build-status/master)
+Flexible user registration and authentication module for Yii2
+
+[![Latest Stable Version](https://poser.pugx.org/yii2mod/yii2-user/v/stable)](https://packagist.org/packages/yii2mod/yii2-user) [![Total Downloads](https://poser.pugx.org/yii2mod/yii2-user/downloads)](https://packagist.org/packages/yii2mod/yii2-user) [![License](https://poser.pugx.org/yii2mod/yii2-user/license)](https://packagist.org/packages/yii2mod/yii2-user)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/yii2mod/yii2-user/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/yii2mod/yii2-user/?branch=master) [![Build Status](https://scrutinizer-ci.com/g/yii2mod/yii2-user/badges/build.png?b=master)](https://scrutinizer-ci.com/g/yii2mod/yii2-user/build-status/master)
 
 Installation
 ------------

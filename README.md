@@ -60,9 +60,12 @@ Add to SiteController (or configure via `$route` param in urlManager):
 You can then access to this actions through the following URL:
 
 1. http://localhost/site/login
-2. http://localhost/site/request-password-reset
+2. http://localhost/site/logout
 3. http://localhost/site/signup
-4. http://localhost/site/logout
+4. http://localhost/site/request-password-reset
+5. http://localhost/site/password-reset
+
+
 
 
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace yii2mod\user\actions;
 
 use Yii;
@@ -7,7 +8,7 @@ use yii\web\BadRequestHttpException;
 use yii\base\InvalidParamException;
 
 /**
- * Class LoginAction
+ * Class PasswordResetAction
  * @package yii2mod\user\actions
  */
 class PasswordResetAction extends Action
@@ -48,7 +49,7 @@ class PasswordResetAction extends Action
         }
 
         return $this->controller->render($this->view, [
-            'model' => $model,
+            'model' => $model
         ]);
     }
 

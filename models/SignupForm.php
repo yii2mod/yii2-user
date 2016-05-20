@@ -1,29 +1,28 @@
 <?php
+
 namespace yii2mod\user\models;
 
 use yii\base\Model;
 use Yii;
 
 /**
- * Signup form
+ * Class SignupForm
+ * @package yii2mod\user\models
  */
 class SignupForm extends Model
 {
     /**
-     * Username
-     * @var
+     * @var string username
      */
     public $username;
 
     /**
-     * Email
-     * @var
+     * @var string email
      */
     public $email;
 
     /**
-     * Password
-     * @var
+     * @var string password
      */
     public $password;
 
@@ -35,13 +34,13 @@ class SignupForm extends Model
         return [
             ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\app\models\UserModel', 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => BaseUserModel::className(), 'message' => Yii::t('app', 'This username has already been taken.')],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required'],
             ['email', 'email'],
-            ['email', 'unique', 'targetClass' => '\app\models\UserModel', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => BaseUserModel::className(), 'message' => Yii::t('app', 'This email address has already been taken.')],
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
@@ -62,9 +61,8 @@ class SignupForm extends Model
             $user->setPassword($this->password);
             $user->generateAuthKey();
             $user->lastLogin = time();
-            if($user->save()) {
-                $userDetailsModels = new BaseUserDetailsModel();
-                $userDetailsModels->userId = $user->primaryKey;
+            if ($user->save()) {
+                $userDetailsModels = new BaseUserDetailsModel(['userId' => $user->getId()]);
                 $userDetailsModels->save();
             }
             return $user;

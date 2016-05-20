@@ -11,16 +11,18 @@ use yii\web\IdentityInterface;
  * Class BaseUserModel
  *
  * @property integer $id
- * @property string  $username
- * @property string  $passwordHash
- * @property string  $passwordResetToken
- * @property string  $email
- * @property string  $authKey
+ * @property string $username
+ * @property string $passwordHash
+ * @property string $passwordResetToken
+ * @property string $email
+ * @property string $authKey
  * @property integer $status
  * @property integer $createdAt
  * @property integer $updatedAt
  * @property integer $lastLogin
- * @property string  $password write-only password
+ * @property string $password write-only password
+ *
+ * @property BaseUserDetailsModel $userDetails
  */
 class BaseUserModel extends ActiveRecord implements IdentityInterface
 {
@@ -52,11 +54,9 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
         return [
             'timestamp' => [
                 'class' => 'yii\behaviors\TimestampBehavior',
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['createdAt', 'updatedAt'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updatedAt'],
-                ],
-            ],
+                'createdAtAttribute' => 'createdAt',
+                'updatedAtAttribute' => 'updatedAt'
+            ]
         ];
     }
 
@@ -125,17 +125,12 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
     /**
      * Finds user by password reset token
      *
-     * @param  string $token password reset token
-     *
+     * @param string $token password reset token
      * @return static|null
      */
     public static function findByPasswordResetToken($token)
     {
-        $expire = \Yii::$app->params['user.passwordResetTokenExpire'];
-        $parts = explode('_', $token);
-        $timestamp = (int)end($parts);
-        if ($timestamp + $expire < time()) {
-            // token expired
+        if (!static::isPasswordResetTokenValid($token)) {
             return null;
         }
 
@@ -143,6 +138,23 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
             'passwordResetToken' => $token,
             'status' => self::STATUS_ACTIVE,
         ]);
+    }
+
+    /**
+     * Finds out if password reset token is valid
+     *
+     * @param string $token password reset token
+     * @return boolean
+     */
+    public static function isPasswordResetTokenValid($token)
+    {
+        if (empty($token)) {
+            return false;
+        }
+        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
+        $expire = Yii::$app->params['user.passwordResetTokenExpire'];
+
+        return $timestamp + $expire >= time();
     }
 
     /**

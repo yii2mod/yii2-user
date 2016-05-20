@@ -2,6 +2,7 @@
 
 namespace yii2mod\user\actions;
 
+use Yii;
 use yii\base\Action;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
@@ -28,32 +29,39 @@ class LoginAction extends Action
     public $layout;
 
     /**
-     * @return string
+     * Initializes the object.
      */
-    public function run()
+    public function init()
     {
         if ($this->layout !== null) {
             $this->controller->layout = $this->layout;
         }
-        if (!\Yii::$app->user->isGuest) {
+        parent::init();
+    }
+
+    /**
+     * @return string
+     */
+    public function run()
+    {
+        if (!Yii::$app->user->isGuest) {
             return $this->controller->goHome();
         }
-        $model = new $this->modelClass;
-        $load = $model->load(\Yii::$app->request->post());
+        $model = Yii::createObject($this->modelClass);
+        $load = $model->load(Yii::$app->request->post());
 
-        if (\Yii::$app->request->isAjax) {
-            \Yii::$app->response->format = Response::FORMAT_JSON;
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
 
         if ($load && $model->login()) {
             $model->getUser()->updateLastLogin();
             return $this->controller->goBack();
-        } else {
-            return $this->controller->render($this->view, [
-                'model' => $model,
-            ]);
         }
-    }
 
+        return $this->controller->render($this->view, [
+            'model' => $model
+        ]);
+    }
 }

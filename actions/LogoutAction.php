@@ -1,4 +1,5 @@
 <?php
+
 namespace yii2mod\user\actions;
 
 use Yii;
@@ -18,5 +19,4 @@ class LogoutAction extends Action
         Yii::$app->user->logout();
         return $this->controller->goHome();
     }
-
 }

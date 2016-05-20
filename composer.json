@@ -14,6 +14,10 @@
             "email": "igorzfort@gmail.com"
         }
     ],
+    "require": {
+        "yiisoft/yii2": ">=2.0.4",
+        "yii2mod/yii2-enum": "*"
+    },
     "autoload": {
         "psr-4": {
             "yii2mod\\user\\": ""

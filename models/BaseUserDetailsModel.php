@@ -40,7 +40,7 @@ class BaseUserDetailsModel extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'userId' => Yii::t('user', 'User ID'),
+            'userId' => Yii::t('app', 'User ID'),
         ];
     }
 

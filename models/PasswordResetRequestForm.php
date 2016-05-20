@@ -2,7 +2,7 @@
 
 namespace yii2mod\user\models;
 
-use app\models\UserModel;
+use Yii;
 use yii\base\Model;
 
 /**
@@ -11,7 +11,6 @@ use yii\base\Model;
  */
 class PasswordResetRequestForm extends Model
 {
-
     /**
      * @var string email field for password reset.
      */
@@ -30,13 +29,13 @@ class PasswordResetRequestForm extends Model
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'exist',
-                'targetClass' => \Yii::$app->user->identityClass,
-                'message' => 'User with this email is not found.'
+                'targetClass' => Yii::$app->user->identityClass,
+                'message' => Yii::t('app', 'User with this email is not found.')
             ],
             ['email', 'exist',
-                'targetClass' => \Yii::$app->user->identityClass,
-                'filter' => ['status' => UserModel::STATUS_ACTIVE],
-                'message' => 'Your account has been deactivated, please contact support for details.'
+                'targetClass' => Yii::$app->user->identityClass,
+                'filter' => ['status' => BaseUserModel::STATUS_ACTIVE],
+                'message' => Yii::t('app', 'Your account has been deactivated, please contact support for details.')
             ]
         ];
     }
@@ -48,19 +47,15 @@ class PasswordResetRequestForm extends Model
      */
     public function sendEmail()
     {
-        /* @var $user User */
-        $user = UserModel::findOne([
-            'status' => UserModel::STATUS_ACTIVE,
-            'email' => $this->email,
-        ]);
+        $user = BaseUserModel::findOne(['status' => BaseUserModel::STATUS_ACTIVE, 'email' => $this->email]);
 
-        if ($user) {
+        if (!empty($user)) {
             $user->generatePasswordResetToken();
             if ($user->save()) {
-                return \Yii::$app->mail->compose('passwordResetToken', ['user' => $user])
-                    ->setFrom(\Yii::$app->params['adminEmail'])
+                return Yii::$app->mail->compose('passwordResetToken', ['user' => $user])
+                    ->setFrom(Yii::$app->params['adminEmail'])
                     ->setTo($this->email)
-                    ->setSubject('Password reset for ' . \Yii::$app->name)
+                    ->setSubject('Password reset for ' . Yii::$app->name)
                     ->send();
             }
         }

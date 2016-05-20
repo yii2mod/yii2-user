@@ -1,10 +1,9 @@
 <?php
+
 namespace yii2mod\user\models;
 
-use app\models\UserModel;
 use Yii;
 use yii\base\Model;
-
 
 /**
  * Login Form
@@ -13,26 +12,22 @@ use yii\base\Model;
 class LoginForm extends Model
 {
     /**
-     * Email
-     * @var
+     * @var string email
      */
     public $email;
 
     /**
-     * Password
-     * @var
+     * @var string password
      */
     public $password;
 
     /**
-     * Remember me
-     * @var bool
+     * @var bool remember me
      */
     public $rememberMe = true;
 
     /**
-     * UserModel
-     * @var bool
+     * @var bool|BaseUserModel
      */
     private $_user = false;
 
@@ -56,11 +51,10 @@ class LoginForm extends Model
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
-            if($user && $user->status === BaseUserModel::STATUS_DELETED) {
-                $this->addError('password', 'Your account has been deactivated, please contact support for details.');
-            }
-            elseif (!$user || !$user->validatePassword($this->password)) {
-                $this->addError('password', 'Incorrect username or password.');
+            if ($user && $user->status === BaseUserModel::STATUS_DELETED) {
+                $this->addError('password', Yii::t('app', 'Your account has been deactivated, please contact support for details.'));
+            } elseif (!$user || !$user->validatePassword($this->password)) {
+                $this->addError('password', Yii::t('app', 'Incorrect username or password.'));
             }
         }
     }
@@ -82,12 +76,12 @@ class LoginForm extends Model
     /**
      * Finds user by [[email]]
      *
-     * @return UserModel|null
+     * @return BaseUserModel|null
      */
     public function getUser()
     {
         if ($this->_user === false) {
-            $this->_user = UserModel::findByEmail($this->email);
+            $this->_user = BaseUserModel::findByEmail($this->email);
         }
         return $this->_user;
     }

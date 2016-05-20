@@ -24,6 +24,36 @@ or add
 
 to the require section of your `composer.json` file.
 
+Configuration
+======================================
+1) Your need to create the UserModel class that be extends of [BaseUserModel](https://github.com/yii2mod/yii2-user/blob/master/models/BaseUserModel.php) and configure the property `identityClass` for `user` component in your project configuration, for example:
+```php
+'user' => [
+    'identityClass' => 'app\models\UserModel',
+],
+```
+2) For sending emails you need to configure the `mail` and `mailer` components in the configuration of your project.
+3) If you don't have the `passwordResetToken.php` template file in the mail folder of your project, then you need to create it, for example:
+```php
+<?php
+
+use yii\helpers\Html;
+
+/* @var $this yii\web\View */
+/* @var $user */
+
+$resetLink = Yii::$app->urlManager->createAbsoluteUrl(['site/password-reset', 'token' => $user->passwordResetToken]);
+?>
+
+Hello <?php echo Html::encode($user->username) ?>,
+
+Follow the link below to reset your password:
+
+<?php echo Html::a(Html::encode($resetLink), $resetLink) ?>
+
+```
+> This template used for password reset email.
+
 Usage
 ======================================
 If you use this extension separate from the [base template](https://github.com/yii2mod/base), then you need execute cms init migration by the following command: 

@@ -60,7 +60,7 @@ Follow the link below to reset your password:
 
 Usage
 ======================================
-If you use this extension separate from the [base template](https://github.com/yii2mod/base), then you need execute cms init migration by the following command: 
+If you use this extension without [base template](https://github.com/yii2mod/base), then you need execute cms init migration by the following command: 
 ```
 php yii migrate/up --migrationPath=@vendor/yii2mod/yii2-user/migrations
 ```

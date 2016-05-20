@@ -56,6 +56,8 @@ Follow the link below to reset your password:
 ```
 > This template used for password reset email.
 
+4) Also some actions send flash messages, so you should use an AlertWidget to render flash messages on your site.
+
 Usage
 ======================================
 If you use this extension separate from the [base template](https://github.com/yii2mod/base), then you need execute cms init migration by the following command: 

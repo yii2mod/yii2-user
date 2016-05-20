@@ -32,7 +32,9 @@ Configuration
     'identityClass' => 'app\models\UserModel',
 ],
 ```
+
 2) For sending emails you need to configure the `mail` and `mailer` components in the configuration of your project.
+
 3) If you don't have the `passwordResetToken.php` template file in the mail folder of your project, then you need to create it, for example:
 ```php
 <?php

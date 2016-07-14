@@ -37,9 +37,9 @@ php yii migrate/up --migrationPath=@vendor/yii2mod/yii2-user/migrations
 ],
 ```
 
-2) For sending emails you need to configure the `mailer` component in the configuration of your project.
+3) For sending emails you need to configure the `mailer` component in the configuration of your project.
 
-3) If you don't have the `passwordResetToken.php` template file in the mail folder of your project, then you need to create it, for example:
+4) If you don't have the `passwordResetToken.php` template file in the mail folder of your project, then you need to create it, for example:
 ```php
 <?php
 
@@ -60,7 +60,7 @@ Follow the link below to reset your password:
 ```
 > This template used for password reset email.
 
-4) Add to SiteController (or configure via `$route` param in urlManager):
+5) Add to SiteController (or configure via `$route` param in urlManager):
 ```php
     /**
      * @return array
@@ -95,4 +95,4 @@ You can then access to this actions through the following URL:
 4. http://localhost/site/request-password-reset
 5. http://localhost/site/password-reset
 
-5) Also some actions send flash messages, so you should use an AlertWidget to render flash messages on your site.
+6) Also some actions send flash messages, so you should use an AlertWidget to render flash messages on your site.

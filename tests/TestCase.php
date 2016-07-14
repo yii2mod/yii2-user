@@ -4,6 +4,7 @@ namespace yii2mod\user\tests;
 
 use yii\helpers\ArrayHelper;
 use Yii;
+use yii2mod\user\tests\data\Controller;
 
 /**
  * This is the base class for all yii framework unit tests.
@@ -15,6 +16,9 @@ class TestCase extends \PHPUnit_Framework_TestCase
         parent::setUp();
         $this->mockApplication();
         $this->setupTestDbData();
+        Yii::$app->mailer->fileTransportCallback = function ($mailer, $message) {
+            return 'testing_message.eml';
+        };
     }
 
     protected function tearDown()
@@ -44,9 +48,19 @@ class TestCase extends \PHPUnit_Framework_TestCase
                 ],
                 'request' => [
                     'hostInfo' => 'http://domain.com',
-                    'scriptUrl' => 'http://domain.com'
+                    'scriptUrl' => 'index.php'
+                ],
+                'mailer' => [
+                    'class' => 'yii\swiftmailer\Mailer',
+                    'useFileTransport' => true,
+                    'htmlLayout' => false,
+                    'viewPath' => __DIR__ . '/data/mail'
                 ],
             ],
+            'params' => [
+                'adminEmail' => 'admin@mail.com',
+                'user.passwordResetTokenExpire' => 3600
+            ]
         ], $config));
     }
 
@@ -64,6 +78,15 @@ class TestCase extends \PHPUnit_Framework_TestCase
     protected function destroyApplication()
     {
         Yii::$app = null;
+    }
+
+    /**
+     * @param array $config controller config.
+     * @return Controller controller instance.
+     */
+    protected function createController($config = [])
+    {
+        return new Controller('test', Yii::$app, $config);
     }
 
     /**
@@ -102,7 +125,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
             'email' => 'demo@mail.com',
             'status' => 1
         ])->execute();
-        
+
         $db->createCommand()->insert('UserDetails', [
             'userId' => 1
         ])->execute();

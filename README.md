@@ -25,15 +25,19 @@ or add
 to the require section of your `composer.json` file.
 
 Configuration
-======================================
-1) Your need to create the UserModel class that be extends of [BaseUserModel](https://github.com/yii2mod/yii2-user/blob/master/models/BaseUserModel.php) and configure the property `identityClass` for `user` component in your project configuration, for example:
+=============
+1) If you use this extension without [base template](https://github.com/yii2mod/base), then you need execute migration by the following command:
+```
+php yii migrate/up --migrationPath=@vendor/yii2mod/yii2-user/migrations
+```
+2) Your need to create the UserModel class that be extends of [BaseUserModel](https://github.com/yii2mod/yii2-user/blob/master/models/BaseUserModel.php) and configure the property `identityClass` for `user` component in your project configuration, for example:
 ```php
 'user' => [
     'identityClass' => 'app\models\UserModel',
 ],
 ```
 
-2) For sending emails you need to configure the `mail` and `mailer` components in the configuration of your project.
+2) For sending emails you need to configure the `mailer` component in the configuration of your project.
 
 3) If you don't have the `passwordResetToken.php` template file in the mail folder of your project, then you need to create it, for example:
 ```php
@@ -56,16 +60,7 @@ Follow the link below to reset your password:
 ```
 > This template used for password reset email.
 
-4) Also some actions send flash messages, so you should use an AlertWidget to render flash messages on your site.
-
-Usage
-======================================
-If you use this extension without [base template](https://github.com/yii2mod/base), then you need execute migration by the following command: 
-```
-php yii migrate/up --migrationPath=@vendor/yii2mod/yii2-user/migrations
-```
-
-Add to SiteController (or configure via `$route` param in urlManager):
+4) Add to SiteController (or configure via `$route` param in urlManager):
 ```php
     /**
      * @return array
@@ -91,6 +86,7 @@ Add to SiteController (or configure via `$route` param in urlManager):
         ];
     }
 ```
+
 You can then access to this actions through the following URL:
 
 1. http://localhost/site/login
@@ -99,7 +95,4 @@ You can then access to this actions through the following URL:
 4. http://localhost/site/request-password-reset
 5. http://localhost/site/password-reset
 
-
-
-
-
+5) Also some actions send flash messages, so you should use an AlertWidget to render flash messages on your site.

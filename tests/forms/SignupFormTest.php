@@ -50,6 +50,6 @@ class SignupFormTest extends TestCase
         $model->password = 'password';
         $model->username = 'demo2';
 
-        $this->assertContainsOnlyInstancesOf(BaseUserModel::className(), [$model->signup()]);
+        $this->assertInstanceOf(BaseUserModel::className(), $model->signup());
     }
 }

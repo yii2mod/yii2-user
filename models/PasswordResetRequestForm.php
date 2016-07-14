@@ -47,7 +47,7 @@ class PasswordResetRequestForm extends Model
      */
     public function sendEmail()
     {
-        $user = BaseUserModel::findByEmail(['status' => BaseUserModel::STATUS_ACTIVE, 'email' => $this->email]);
+        $user = BaseUserModel::findOne(['status' => BaseUserModel::STATUS_ACTIVE, 'email' => $this->email]);
 
         if (!empty($user)) {
             $user->generatePasswordResetToken();

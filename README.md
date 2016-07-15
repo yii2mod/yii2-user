@@ -96,3 +96,27 @@ You can then access to this actions through the following URL:
 5. http://localhost/site/password-reset
 
 6) Also some actions send flash messages, so you should use an AlertWidget to render flash messages on your site.
+
+Internationalization
+----------------------
+
+All text and messages introduced in this extension are translatable under category 'yii2mod.user'.
+You may use translations provided within this extension, using following application configuration:
+
+```php
+return [
+    'components' => [
+        'i18n' => [
+            'translations' => [
+                'yii2mod.settings' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@yii2mod/user/messages',
+                ],
+                // ...
+            ],
+        ],
+        // ...
+    ],
+    // ...
+];
+```

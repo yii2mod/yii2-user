@@ -40,10 +40,10 @@ class RequestPasswordResetAction extends Action
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                Yii::$app->getSession()->setFlash('success', Yii::t('app', $this->successMessage));
+                Yii::$app->getSession()->setFlash('success', Yii::t('yii2mod.user', $this->successMessage));
                 return $this->controller->goHome();
             } else {
-                Yii::$app->getSession()->setFlash('error', Yii::t('app', $this->errorMessage));
+                Yii::$app->getSession()->setFlash('error', Yii::t('yii2mod.user', $this->errorMessage));
             }
         }
 
@@ -51,4 +51,4 @@ class RequestPasswordResetAction extends Action
             'model' => $model,
         ]);
     }
-} 
+}

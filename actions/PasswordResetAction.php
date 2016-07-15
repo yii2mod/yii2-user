@@ -28,12 +28,13 @@ class PasswordResetAction extends Action
      */
     public $successMessage = 'New password was saved.';
 
-
     /**
+     * Reset password action
+     *
      * @param $token
+     * @return string|\yii\web\Response
      *
      * @throws \yii\web\BadRequestHttpException
-     * @return string
      */
     public function run($token)
     {
@@ -44,7 +45,7 @@ class PasswordResetAction extends Action
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->getSession()->setFlash('success', $this->successMessage);
+            Yii::$app->getSession()->setFlash('success', Yii::t('yii2mod.user', $this->successMessage));
             return $this->controller->goHome();
         }
 
@@ -52,5 +53,4 @@ class PasswordResetAction extends Action
             'model' => $model
         ]);
     }
-
 }

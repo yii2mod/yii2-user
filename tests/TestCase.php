@@ -56,6 +56,14 @@ class TestCase extends \PHPUnit_Framework_TestCase
                     'htmlLayout' => false,
                     'viewPath' => __DIR__ . '/data/mail'
                 ],
+                'i18n' => [
+                    'translations' => [
+                        'yii2mod.user' => [
+                            'class' => 'yii\i18n\PhpMessageSource',
+                            'basePath' => '@yii2mod/user/messages',
+                        ]
+                    ]
+                ]
             ],
             'params' => [
                 'adminEmail' => 'admin@mail.com',

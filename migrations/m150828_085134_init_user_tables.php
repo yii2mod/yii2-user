@@ -8,9 +8,11 @@ class m150828_085134_init_user_tables extends Migration
     public function up()
     {
         $tableOptions = null;
+
         if ($this->db->driverName === 'mysql') {
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
+
         //Create user table
         $this->createTable('{{%User}}', [
             'id' => Schema::TYPE_PK,

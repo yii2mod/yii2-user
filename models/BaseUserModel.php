@@ -36,7 +36,6 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
      */
     const STATUS_ACTIVE = 1;
 
-
     /**
      * @inheritdoc
      */
@@ -44,7 +43,6 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
     {
         return '{{%User}}';
     }
-
 
     /**
      * @inheritdoc
@@ -63,8 +61,7 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
     /**
      * Returns the validation rules for attributes.
      *
-     * Validation rules are used by [[validate()]] to check if attribute values are valid.
-     * Child classes may override this method to declare different validation rules.
+     * @return array
      */
     public function rules()
     {
@@ -151,7 +148,7 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
         if (empty($token)) {
             return false;
         }
-        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
+        $timestamp = (int)substr($token, strrpos($token, '_') + 1);
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
 
         return $timestamp + $expire >= time();

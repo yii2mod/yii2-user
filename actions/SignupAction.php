@@ -23,7 +23,8 @@ class SignupAction extends Action
 
     /**
      * Signup action
-     * @return string
+     *
+     * @return string|\yii\web\Response
      */
     public function run()
     {
@@ -41,5 +42,4 @@ class SignupAction extends Action
             'model' => $model
         ]);
     }
-
 }

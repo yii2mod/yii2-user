@@ -35,10 +35,13 @@ class ResetPasswordForm extends Model
         if (empty($token) || !is_string($token)) {
             throw new InvalidParamException('Password reset token cannot be blank.');
         }
+
         $this->_user = BaseUserModel::findByPasswordResetToken($token);
+
         if (!$this->_user) {
             throw new InvalidParamException('Wrong password reset token.');
         }
+
         parent::__construct($config);
     }
 
@@ -50,6 +53,16 @@ class ResetPasswordForm extends Model
         return [
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'password' => Yii::t('yii2mod.user', 'Password')
         ];
     }
 

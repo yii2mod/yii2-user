@@ -42,5 +42,6 @@ return [
     'New password was saved.' => 'New password was saved.',
     'This email address has already been taken.' => 'This email address has already been taken.',
     'This username has already been taken.' => 'This username has already been taken.',
-    'Status' => 'Status'
+    'Status' => 'Status',
+    'lastLogin' => 'Date of last login'
 ];

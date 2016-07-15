@@ -42,5 +42,6 @@ return [
     'New password was saved.' => 'Новый пароль успешно сохранен.',
     'This email address has already been taken.' => 'Этот адрес электронной почты уже занят.',
     'This username has already been taken.' => 'Это имя пользователя уже занято.',
-    'Status' => 'Статус'
+    'Status' => 'Статус',
+    'lastLogin' => 'Дата последнего входа'
 ];

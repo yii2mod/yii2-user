@@ -45,6 +45,38 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * Returns the validation rules for attributes.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            [['username', 'email'], 'required'],
+            ['email', 'unique', 'message' => Yii::t('yii2mod.user', 'This email address has already been taken.')],
+            ['username', 'unique', 'message' => Yii::t('yii2mod.user', 'This username has already been taken.')],
+            [['username', 'email'], 'string', 'max' => 255],
+            ['email', 'email'],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            [['lastLogin'], 'integer', 'integerOnly' => true],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'username' => Yii::t('yii2mod.user', 'Username'),
+            'email' => Yii::t('yii2mod.user', 'Email'),
+            'status' => Yii::t('yii2mod.user', 'Status'),
+            'lastLogin' => Yii::t('yii2mod.user', 'Last Login')
+        ];
+    }
+
+    /**
      * @inheritdoc
      */
     public function behaviors()
@@ -55,20 +87,6 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
                 'createdAtAttribute' => 'createdAt',
                 'updatedAtAttribute' => 'updatedAt'
             ]
-        ];
-    }
-
-    /**
-     * Returns the validation rules for attributes.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
-            [['lastLogin'], 'integer', 'integerOnly' => true],
         ];
     }
 

@@ -39,5 +39,8 @@ return [
     'Signup' => 'Signup',
     'Please fill out the following fields to signup:' => 'Please fill out the following fields to signup:',
     'Username' => 'Username',
-    'New password was saved.' => 'New password was saved.'
+    'New password was saved.' => 'New password was saved.',
+    'This email address has already been taken.' => 'This email address has already been taken.',
+    'This username has already been taken.' => 'This username has already been taken.',
+    'Status' => 'Status'
 ];

@@ -39,5 +39,8 @@ return [
     'Signup' => 'Регистрация',
     'Please fill out the following fields to signup:' => 'Пожалуйста, заполните следующие поля для регистрации:',
     'Username' => 'Имя пользователя',
-    'New password was saved.' => 'Новый пароль успешно сохранен.'
+    'New password was saved.' => 'Новый пароль успешно сохранен.',
+    'This email address has already been taken.' => 'Этот адрес электронной почты уже занят.',
+    'This username has already been taken.' => 'Это имя пользователя уже занято.',
+    'Status' => 'Статус'
 ];

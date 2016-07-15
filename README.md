@@ -108,7 +108,7 @@ return [
     'components' => [
         'i18n' => [
             'translations' => [
-                'yii2mod.settings' => [
+                'yii2mod.user' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@yii2mod/user/messages',
                 ],

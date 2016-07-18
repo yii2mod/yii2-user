@@ -22,7 +22,6 @@ use yii\web\IdentityInterface;
  * @property integer $lastLogin
  * @property string $password write-only password
  *
- * @property BaseUserDetailsModel $userDetails
  */
 class BaseUserModel extends ActiveRecord implements IdentityInterface
 {
@@ -45,34 +44,14 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Returns the validation rules for attributes.
-     *
-     * @return array
+     * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['username', 'email'], 'required'],
-            ['email', 'unique', 'message' => Yii::t('yii2mod.user', 'This email address has already been taken.')],
-            ['username', 'unique', 'message' => Yii::t('yii2mod.user', 'This username has already been taken.')],
-            [['username', 'email'], 'string', 'max' => 255],
-            ['email', 'email'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             [['lastLogin'], 'integer', 'integerOnly' => true],
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'username' => Yii::t('yii2mod.user', 'Username'),
-            'email' => Yii::t('yii2mod.user', 'Email'),
-            'status' => Yii::t('yii2mod.user', 'Status'),
-            'lastLogin' => Yii::t('yii2mod.user', 'Last Login')
         ];
     }
 
@@ -88,14 +67,6 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
                 'updatedAtAttribute' => 'updatedAt'
             ]
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUserDetails()
-    {
-        return $this->hasOne(BaseUserDetailsModel::className(), ['userId' => 'id']);
     }
 
     /**

@@ -119,10 +119,6 @@ class TestCase extends \PHPUnit_Framework_TestCase
             'lastLogin' => 'integer',
         ])->execute();
 
-        $db->createCommand()->createTable('UserDetails', [
-            'userId' => 'integer'
-        ])->execute();
-
         // Data :
 
         $db->createCommand()->insert('User', [
@@ -132,10 +128,6 @@ class TestCase extends \PHPUnit_Framework_TestCase
             'passwordResetToken' => '',
             'email' => 'demo@mail.com',
             'status' => 1
-        ])->execute();
-
-        $db->createCommand()->insert('UserDetails', [
-            'userId' => 1
         ])->execute();
     }
 }

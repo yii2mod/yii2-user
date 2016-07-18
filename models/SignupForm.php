@@ -32,21 +32,25 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            ['username', 'filter', 'filter' => 'trim'],
+            ['username', 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => BaseUserModel::className(), 'message' => Yii::t('app', 'This username has already been taken.')],
+            ['username', 'unique', 'targetClass' => BaseUserModel::className(), 'message' => Yii::t('yii2mod.user', 'This username has already been taken.')],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
-            ['email', 'filter', 'filter' => 'trim'],
+            ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
-            ['email', 'unique', 'targetClass' => BaseUserModel::className(), 'message' => Yii::t('app', 'This email address has already been taken.')],
+            ['email', 'string', 'max' => 255],
+            ['email', 'unique', 'targetClass' => BaseUserModel::className(), 'message' => Yii::t('yii2mod.user', 'This email address has already been taken.')],
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     public function attributeLabels()
     {
         return [
@@ -63,20 +67,17 @@ class SignupForm extends Model
      */
     public function signup()
     {
-        if ($this->validate()) {
-            $user = new BaseUserModel();
-            $user->username = $this->username;
-            $user->email = $this->email;
-            $user->setPassword($this->password);
-            $user->generateAuthKey();
-            $user->lastLogin = time();
-            if ($user->save()) {
-                $userDetailsModels = new BaseUserDetailsModel(['userId' => $user->getId()]);
-                $userDetailsModels->save();
-            }
-            return $user;
+        if (!$this->validate()) {
+            return null;
         }
 
-        return null;
+        $user = new BaseUserModel();
+        $user->username = $this->username;
+        $user->email = $this->email;
+        $user->setPassword($this->password);
+        $user->generateAuthKey();
+        $user->lastLogin = time();
+
+        return $user->save() ? $user : null;
     }
 }

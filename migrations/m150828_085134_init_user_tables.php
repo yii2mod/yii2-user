@@ -26,18 +26,11 @@ class m150828_085134_init_user_tables extends Migration
             'updatedAt' => Schema::TYPE_INTEGER . ' NOT NULL',
             'lastLogin' => Schema::TYPE_INTEGER,
         ], $tableOptions);
-
-        //Create user details table
-        $this->createTable('{{%UserDetails}}', [
-            'userId' => Schema::TYPE_PK,
-            'FOREIGN KEY (userId) REFERENCES {{%User}} (id) ON DELETE CASCADE ON UPDATE CASCADE',
-        ], $tableOptions);
     }
 
     public function down()
     {
         $this->dropTable('{{%User}}');
-        $this->dropTable('{{%UserDetails}}');
     }
 
     /*

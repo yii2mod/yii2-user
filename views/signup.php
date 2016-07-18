@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php echo $form->field($model, 'email') ?>
             <?php echo $form->field($model, 'password')->passwordInput() ?>
             <div class="form-group">
-                <?php echo Html::submitButton(Yii::t('yii2mod.user', 'Регистрация'), ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+                <?php echo Html::submitButton(Yii::t('yii2mod.user', 'Signup'), ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
             </div>
             <?php ActiveForm::end(); ?>
         </div>

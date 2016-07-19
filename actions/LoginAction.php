@@ -47,6 +47,7 @@ class LoginAction extends Action
         if (!Yii::$app->user->isGuest) {
             return $this->controller->goHome();
         }
+        
         $model = Yii::createObject($this->modelClass);
         $load = $model->load(Yii::$app->request->post());
 
@@ -56,7 +57,6 @@ class LoginAction extends Action
         }
 
         if ($load && $model->login()) {
-            $model->getUser()->updateLastLogin();
             return $this->controller->goBack();
         }
 

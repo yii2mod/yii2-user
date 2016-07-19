@@ -40,6 +40,10 @@ php yii migrate/up --migrationPath=@vendor/yii2mod/yii2-user/migrations
 ```php
 'user' => [
     'identityClass' => 'app\models\UserModel',
+    // for update last login date for user, you can call the `afterLogin` event as follows
+    'on afterLogin' => function ($event) {
+        $event->identity->updateLastLogin();
+    }
 ],
 ```
 

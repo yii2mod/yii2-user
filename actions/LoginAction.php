@@ -3,7 +3,6 @@
 namespace yii2mod\user\actions;
 
 use Yii;
-use yii\base\Action;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
@@ -40,13 +39,16 @@ class LoginAction extends Action
     }
 
     /**
+     * Logs in a user.
+     *
      * @return string
      */
     public function run()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->controller->goHome();
+            return $this->redirectTo(Yii::$app->getHomeUrl());
         }
+
         $model = Yii::createObject($this->modelClass);
         $load = $model->load(Yii::$app->request->post());
 
@@ -56,8 +58,7 @@ class LoginAction extends Action
         }
 
         if ($load && $model->login()) {
-            $model->getUser()->updateLastLogin();
-            return $this->controller->goBack();
+            return $this->redirectTo(Yii::$app->getUser()->getReturnUrl());
         }
 
         return $this->controller->render($this->view, [

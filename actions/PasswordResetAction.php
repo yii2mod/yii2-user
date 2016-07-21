@@ -3,7 +3,6 @@
 namespace yii2mod\user\actions;
 
 use Yii;
-use yii\base\Action;
 use yii\web\BadRequestHttpException;
 use yii\base\InvalidParamException;
 
@@ -29,7 +28,7 @@ class PasswordResetAction extends Action
     public $successMessage = 'New password was saved.';
 
     /**
-     * Reset password action
+     * Reset password for a user.
      *
      * @param $token
      * @return string|\yii\web\Response
@@ -39,14 +38,14 @@ class PasswordResetAction extends Action
     public function run($token)
     {
         try {
-            $model = new $this->modelClass($token);
+            $model = Yii::createObject($this->modelClass, [$token]);
         } catch (InvalidParamException $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
             Yii::$app->getSession()->setFlash('success', Yii::t('yii2mod.user', $this->successMessage));
-            return $this->controller->goHome();
+            return $this->redirectTo(Yii::$app->getHomeUrl());
         }
 
         return $this->controller->render($this->view, [

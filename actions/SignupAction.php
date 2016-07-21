@@ -3,7 +3,6 @@
 namespace yii2mod\user\actions;
 
 use Yii;
-use yii\base\Action;
 
 /**
  * Class SignupAction
@@ -22,7 +21,7 @@ class SignupAction extends Action
     public $modelClass = 'yii2mod\user\models\SignupForm';
 
     /**
-     * Signup action
+     * Signup a user.
      *
      * @return string|\yii\web\Response
      */
@@ -30,11 +29,9 @@ class SignupAction extends Action
     {
         $model = Yii::createObject($this->modelClass);
 
-        if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    return $this->controller->goBack();
-                }
+        if ($model->load(Yii::$app->request->post()) && ($user = $model->signup()) !== null) {
+            if (Yii::$app->getUser()->login($user)) {
+                return $this->redirectTo(Yii::$app->getUser()->getReturnUrl());
             }
         }
 

@@ -3,7 +3,6 @@
 namespace yii2mod\user\actions;
 
 use Yii;
-use yii\base\Action;
 
 /**
  * Class RequestPasswordResetAction
@@ -32,6 +31,8 @@ class RequestPasswordResetAction extends Action
     public $errorMessage = 'Sorry, we are unable to reset password for email provided.';
 
     /**
+     * Request password reset for a user.
+     *
      * @return string|\yii\web\Response
      */
     public function run()
@@ -41,7 +42,7 @@ class RequestPasswordResetAction extends Action
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
                 Yii::$app->getSession()->setFlash('success', Yii::t('yii2mod.user', $this->successMessage));
-                return $this->controller->goHome();
+                return $this->redirectTo(Yii::$app->getHomeUrl());
             } else {
                 Yii::$app->getSession()->setFlash('error', Yii::t('yii2mod.user', $this->errorMessage));
             }

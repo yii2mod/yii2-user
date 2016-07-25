@@ -2,7 +2,7 @@
     "name": "yii2mod/yii2-user",
     "description": "User module",
     "type": "yii2-extension",
-    "keywords": ["yii2", "extension"],
+    "keywords": ["yii2", "yii2-user", "user management", "user module"],
     "license": "MIT",
     "authors": [
         {
@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-        "yiisoft/yii2": ">=2.0.5",
+        "yiisoft/yii2": ">=2.0.8",
         "yiisoft/yii2-swiftmailer": "*",
         "yii2mod/yii2-enum": "*"
     },

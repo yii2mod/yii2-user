@@ -1,8 +1,10 @@
 <?php
 
 use yii\db\Migration;
-use yii\db\Schema;
 
+/**
+ * Class m150828_085134_init_user_tables
+ */
 class m150828_085134_init_user_tables extends Migration
 {
     public function up()
@@ -13,18 +15,18 @@ class m150828_085134_init_user_tables extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
-        //Create user table
+        // Create user table
         $this->createTable('{{%User}}', [
-            'id' => Schema::TYPE_PK,
-            'username' => Schema::TYPE_STRING . ' NOT NULL',
-            'authKey' => Schema::TYPE_STRING . '(32) NOT NULL',
-            'passwordHash' => Schema::TYPE_STRING . ' NOT NULL',
-            'passwordResetToken' => Schema::TYPE_STRING,
-            'email' => Schema::TYPE_STRING . ' NOT NULL',
-            'status' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 10',
-            'createdAt' => Schema::TYPE_INTEGER . ' NOT NULL',
-            'updatedAt' => Schema::TYPE_INTEGER . ' NOT NULL',
-            'lastLogin' => Schema::TYPE_INTEGER,
+            'id' => $this->primaryKey(),
+            'username' => $this->string()->notNull(),
+            'authKey' => $this->string(32)->notNull(),
+            'passwordHash' => $this->string()->notNull(),
+            'passwordResetToken' => $this->string(),
+            'email' => $this->string()->notNull(),
+            'status' => $this->smallInteger()->notNull()->defaultValue(10),
+            'createdAt' => $this->integer()->notNull(),
+            'updatedAt' => $this->integer()->notNull(),
+            'lastLogin' => $this->integer()
         ], $tableOptions);
     }
 

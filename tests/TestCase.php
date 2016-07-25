@@ -108,14 +108,14 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
         $db->createCommand()->createTable('User', [
             'id' => 'pk',
-            'username' => 'string',
-            'authKey' => 'string',
-            'passwordHash' => 'string',
+            'username' => 'string not null',
+            'authKey' => 'string(32) not null',
+            'passwordHash' => 'string not null',
             'passwordResetToken' => 'string',
-            'email' => 'string',
-            'status' => 'integer NOT NULL DEFAULT 10',
-            'createdAt' => 'integer',
-            'updatedAt' => 'integer',
+            'email' => 'string not null',
+            'status' => 'integer not null default 10',
+            'createdAt' => 'integer not null',
+            'updatedAt' => 'integer not null',
             'lastLogin' => 'integer',
         ])->execute();
 
@@ -127,7 +127,9 @@ class TestCase extends \PHPUnit_Framework_TestCase
             'passwordHash' => Yii::$app->getSecurity()->generatePasswordHash('password'),
             'passwordResetToken' => '',
             'email' => 'demo@mail.com',
-            'status' => 1
+            'status' => 1,
+            'createdAt' => time(),
+            'updatedAt' => time()
         ])->execute();
     }
 }

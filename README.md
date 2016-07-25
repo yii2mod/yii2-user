@@ -24,6 +24,33 @@ or add
 
 to the require section of your `composer.json` file.
 
+## Actions
+
+This extension provides several independent action classes, which provides particular operation support:
+
+1. **[[yii2mod\user\actions\LoginAction]]** - Logs in a user. The following additional parameters are available:
+  - `view` - name of the view, which should be rendered.
+  - `modelClass` - login model class name. 
+  - `layout` - the name of the layout to be applied to this view.
+  - `returnUrl`  - url which user should be redirected to on success.
+2. **[[yii2mod\user\actions\LogoutAction]]** - Logs out the current user. The following additional parameters are available:
+  - `returnUrl`  - url which user should be redirected to on success.
+3. **[[yii2mod\user\actions\SignupAction]]** - Signup a user. You can change the following params:
+  - `view` - name of the view, which should be rendered.
+  - `modelClass` - signup model class name.
+  - `returnUrl` - url which user should be redirected to on success.
+4. **[[yii2mod\user\actions\RequestPasswordResetAction]]** - Request password reset for a user. The following additional parameters are available:
+  - `view` - name of the view, which should be rendered.
+  - `modelClass` - request password model class.
+  - `successMessage` - message to the user when the mail is sent successfully.
+  - `errorMessage` - error message for the user when the email was not sent.
+  - `returnUrl` - url which user should be redirected to on success.
+5. **[[yii2mod\user\actions\PasswordResetAction]]** - Reset password for a user. The following additional parameters are available:
+  - `view` - name of the view, which should be rendered.
+  - `modelClass` - reset password model class.
+  - `successMessage` - message to be set on success.
+  - `returnUrl` - url which user should be redirected to on success.
+
 Configuration
 =============
 1) If you use this extension without [base template](https://github.com/yii2mod/base), then you need execute migration by the following command:

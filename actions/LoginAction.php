@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
 class LoginAction extends Action
 {
     /**
-     * @var string
+     * @var string name of the view, which should be rendered
      */
     public $view = '@vendor/yii2mod/yii2-user/views/login';
 

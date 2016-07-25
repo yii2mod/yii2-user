@@ -13,7 +13,7 @@ use yii\base\InvalidParamException;
 class PasswordResetAction extends Action
 {
     /**
-     * @var string view path
+     * @var string name of the view, which should be rendered
      */
     public $view = '@vendor/yii2mod/yii2-user/views/resetPassword';
 
@@ -23,7 +23,7 @@ class PasswordResetAction extends Action
     public $modelClass = 'yii2mod\user\models\ResetPasswordForm';
 
     /**
-     * @var string success message after resetPassword
+     * @var string message to be set on success.
      */
     public $successMessage = 'New password was saved.';
 

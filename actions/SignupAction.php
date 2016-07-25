@@ -11,7 +11,7 @@ use Yii;
 class SignupAction extends Action
 {
     /**
-     * @var string signup view path
+     * @var string name of the view, which should be rendered
      */
     public $view = '@vendor/yii2mod/yii2-user/views/signup';
 

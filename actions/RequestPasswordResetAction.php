@@ -11,7 +11,7 @@ use Yii;
 class RequestPasswordResetAction extends Action
 {
     /**
-     * @var string view path
+     * @var string name of the view, which should be rendered
      */
     public $view = '@vendor/yii2mod/yii2-user/views/requestPasswordResetToken';
 

@@ -3,6 +3,8 @@
 namespace yii2mod\user\actions;
 
 use Yii;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 
 /**
  * Class RequestPasswordResetAction
@@ -38,8 +40,14 @@ class RequestPasswordResetAction extends Action
     public function run()
     {
         $model = Yii::createObject($this->modelClass);
+        $load = $model->load(Yii::$app->request->post());
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
+        if ($load && $model->validate()) {
             if ($model->sendEmail()) {
                 Yii::$app->getSession()->setFlash('success', Yii::t('yii2mod.user', $this->successMessage));
                 return $this->redirectTo(Yii::$app->getHomeUrl());

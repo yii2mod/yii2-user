@@ -23,7 +23,7 @@ class m150828_085134_init_user_tables extends Migration
             'passwordHash' => $this->string()->notNull(),
             'passwordResetToken' => $this->string(),
             'email' => $this->string()->notNull(),
-            'status' => $this->smallInteger()->notNull()->defaultValue(10),
+            'status' => $this->smallInteger()->notNull()->defaultValue(1),
             'createdAt' => $this->integer()->notNull(),
             'updatedAt' => $this->integer()->notNull(),
             'lastLogin' => $this->integer()

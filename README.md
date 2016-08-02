@@ -1,4 +1,4 @@
-`User` module
+User module
 ===========
 Flexible user registration and authentication module for Yii2
 

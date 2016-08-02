@@ -35,7 +35,7 @@ This extension provides several independent action classes, which provides parti
   - `returnUrl`  - url which user should be redirected to on success.
 2. **[[yii2mod\user\actions\LogoutAction]]** - Logs out the current user. The following additional parameters are available:
   - `returnUrl`  - url which user should be redirected to on success.
-3. **[[yii2mod\user\actions\SignupAction]]** - Signup a user. You can change the following params:
+3. **[[yii2mod\user\actions\SignupAction]]** - Signup a user. The following additional parameters are available:
   - `view` - name of the view, which should be rendered.
   - `modelClass` - signup model class name.
   - `returnUrl` - url which user should be redirected to on success.

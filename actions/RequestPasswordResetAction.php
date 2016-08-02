@@ -3,6 +3,9 @@
 namespace yii2mod\user\actions;
 
 use Yii;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
+use yii2mod\user\traits\EventTrait;
 
 /**
  * Class RequestPasswordResetAction
@@ -10,6 +13,20 @@ use Yii;
  */
 class RequestPasswordResetAction extends Action
 {
+    use EventTrait;
+
+    /**
+     * Event is triggered before requesting password reset.
+     * Triggered with \yii2mod\user\events\FormEvent.
+     */
+    const EVENT_BEFORE_REQUEST = 'beforeRequest';
+
+    /**
+     * Event is triggered after requesting password reset.
+     * Triggered with \yii2mod\user\events\FormEvent.
+     */
+    const EVENT_AFTER_REQUEST = 'afterRequest';
+
     /**
      * @var string name of the view, which should be rendered
      */
@@ -38,9 +55,20 @@ class RequestPasswordResetAction extends Action
     public function run()
     {
         $model = Yii::createObject($this->modelClass);
+        $event = $this->getFormEvent($model);
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        $this->trigger(self::EVENT_BEFORE_REQUEST, $event);
+
+        $load = $model->load(Yii::$app->request->post());
+
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
+        if ($load && $model->validate()) {
             if ($model->sendEmail()) {
+                $this->trigger(self::EVENT_AFTER_REQUEST, $event);
                 Yii::$app->getSession()->setFlash('success', Yii::t('yii2mod.user', $this->successMessage));
                 return $this->redirectTo(Yii::$app->getHomeUrl());
             } else {

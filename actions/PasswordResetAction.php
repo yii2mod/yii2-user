@@ -5,6 +5,7 @@ namespace yii2mod\user\actions;
 use Yii;
 use yii\web\BadRequestHttpException;
 use yii\base\InvalidParamException;
+use yii2mod\user\traits\EventTrait;
 
 /**
  * Class PasswordResetAction
@@ -12,6 +13,20 @@ use yii\base\InvalidParamException;
  */
 class PasswordResetAction extends Action
 {
+    use EventTrait;
+
+    /**
+     * Event is triggered before resetting password.
+     * Triggered with \yii2mod\user\events\FormEvent.
+     */
+    const EVENT_BEFORE_RESET = 'beforeReset';
+
+    /**
+     * Event is triggered after resetting password.
+     * Triggered with \yii2mod\user\events\FormEvent.
+     */
+    const EVENT_AFTER_RESET = 'afterReset';
+
     /**
      * @var string name of the view, which should be rendered
      */
@@ -39,11 +54,14 @@ class PasswordResetAction extends Action
     {
         try {
             $model = Yii::createObject($this->modelClass, [$token]);
+            $event = $this->getFormEvent($model);
+            $this->trigger(self::EVENT_BEFORE_RESET, $event);
         } catch (InvalidParamException $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
+            $this->trigger(self::EVENT_AFTER_RESET, $event);
             Yii::$app->getSession()->setFlash('success', Yii::t('yii2mod.user', $this->successMessage));
             return $this->redirectTo(Yii::$app->getHomeUrl());
         }

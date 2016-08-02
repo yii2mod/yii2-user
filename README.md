@@ -1,4 +1,4 @@
-User module
+`User` module
 ===========
 Flexible user registration and authentication module for Yii2
 
@@ -133,6 +133,67 @@ You can then access to this actions through the following URL:
 5. http://localhost/site/password-reset
 
 7) Also some actions send flash messages, so you should use an AlertWidget to render flash messages on your site.
+
+Using action events
+-------------------
+
+You may use the following events:
+
+```php
+    /**
+     * @return array
+     */
+    public function actions()
+    {
+        return [
+            'login' => [
+                'class' => 'yii2mod\user\actions\LoginAction',
+                'on beforeLogin' => function ($event) {
+                    // your custom code
+                },
+                'on afterLogin' => function ($event) {
+                    // your custom code
+                },
+            ],
+            'logout' => [
+                'class' => 'yii2mod\user\actions\LogoutAction',
+                'on beforeLogout' => function ($event) {
+                    // your custom code
+                },
+                'on afterLogout' => function ($event) {
+                    // your custom code
+                },
+            ],
+            'signup' => [
+                'class' => 'yii2mod\user\actions\SignupAction',
+                'on beforeSignup' => function ($event) {
+                    // your custom code
+                },
+                'on afterSignup' => function ($event) {
+                    // your custom code
+                },
+            ],
+            'request-password-reset' => [
+                'class' => 'yii2mod\user\actions\RequestPasswordResetAction',
+                'on beforeRequest' => function ($event) {
+                    // your custom code
+                },
+                'on afterRequest' => function ($event) {
+                    // your custom code
+                },
+            ],
+            'password-reset' => [
+                'class' => 'yii2mod\user\actions\PasswordResetAction',
+                'on beforeReset' => function ($event) {
+                    // your custom code
+                },
+                'on afterReset' => function ($event) {
+                    // your custom code
+                },
+            ],
+        ];
+    }
+```
 
 Internationalization
 ----------------------

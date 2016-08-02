@@ -3,6 +3,9 @@
 namespace yii2mod\user\actions;
 
 use Yii;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
+use yii2mod\user\traits\EventTrait;
 
 /**
  * Class SignupAction
@@ -10,6 +13,20 @@ use Yii;
  */
 class SignupAction extends Action
 {
+    use EventTrait;
+
+    /**
+     * Event is triggered after creating SignupForm class.
+     * Triggered with \yii2mod\user\events\FormEvent.
+     */
+    const EVENT_BEFORE_SIGNUP = 'beforeSignup';
+
+    /**
+     * Event is triggered after successful signup.
+     * Triggered with \yii2mod\user\events\FormEvent.
+     */
+    const EVENT_AFTER_SIGNUP = 'afterSignup';
+
     /**
      * @var string name of the view, which should be rendered
      */
@@ -28,8 +45,19 @@ class SignupAction extends Action
     public function run()
     {
         $model = Yii::createObject($this->modelClass);
+        $event = $this->getFormEvent($model);
 
-        if ($model->load(Yii::$app->request->post()) && ($user = $model->signup()) !== null) {
+        $this->trigger(self::EVENT_BEFORE_SIGNUP, $event);
+
+        $load = $model->load(Yii::$app->request->post());
+
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
+        if ($load && ($user = $model->signup()) !== null) {
+            $this->trigger(self::EVENT_AFTER_SIGNUP, $event);
             if (Yii::$app->getUser()->login($user)) {
                 return $this->redirectTo(Yii::$app->getUser()->getReturnUrl());
             }

@@ -16,7 +16,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
         parent::setUp();
         $this->mockApplication();
         $this->setupTestDbData();
-        Yii::$app->mailer->fileTransportCallback = function ($mailer, $message) {
+        Yii::$app->mailer->fileTransportCallback = function () {
             return 'testing_message.eml';
         };
     }
@@ -108,12 +108,12 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
         $db->createCommand()->createTable('User', [
             'id' => 'pk',
-            'username' => 'string not null',
+            'username' => 'string not null unique',
             'authKey' => 'string(32) not null',
             'passwordHash' => 'string not null',
-            'passwordResetToken' => 'string',
-            'email' => 'string not null',
-            'status' => 'integer not null default 10',
+            'passwordResetToken' => 'string unique',
+            'email' => 'string not null unique',
+            'status' => 'integer not null default 1',
             'createdAt' => 'integer not null',
             'updatedAt' => 'integer not null',
             'lastLogin' => 'integer',
@@ -123,11 +123,9 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
         $db->createCommand()->insert('User', [
             'username' => 'demo',
-            'authKey' => '',
+            'authKey' => Yii::$app->getSecurity()->generateRandomString(),
             'passwordHash' => Yii::$app->getSecurity()->generatePasswordHash('password'),
-            'passwordResetToken' => '',
             'email' => 'demo@mail.com',
-            'status' => 1,
             'createdAt' => time(),
             'updatedAt' => time()
         ])->execute();

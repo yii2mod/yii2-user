@@ -18,11 +18,11 @@ class m150828_085134_init_user_tables extends Migration
         // Create user table
         $this->createTable('{{%User}}', [
             'id' => $this->primaryKey(),
-            'username' => $this->string()->notNull(),
+            'username' => $this->string()->notNull()->unique(),
             'authKey' => $this->string(32)->notNull(),
             'passwordHash' => $this->string()->notNull(),
-            'passwordResetToken' => $this->string(),
-            'email' => $this->string()->notNull(),
+            'passwordResetToken' => $this->string()->unique(),
+            'email' => $this->string()->notNull()->unique(),
             'status' => $this->smallInteger()->notNull()->defaultValue(1),
             'createdAt' => $this->integer()->notNull(),
             'updatedAt' => $this->integer()->notNull(),

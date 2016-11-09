@@ -106,7 +106,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
         // Structure :
 
-        $db->createCommand()->createTable('User', [
+        $db->createCommand()->createTable('user', [
             'id' => 'pk',
             'username' => 'string not null unique',
             'authKey' => 'string(32) not null',
@@ -121,7 +121,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
         // Data :
 
-        $db->createCommand()->insert('User', [
+        $db->createCommand()->insert('user', [
             'username' => 'demo',
             'authKey' => Yii::$app->getSecurity()->generateRandomString(),
             'passwordHash' => Yii::$app->getSecurity()->generatePasswordHash('password'),

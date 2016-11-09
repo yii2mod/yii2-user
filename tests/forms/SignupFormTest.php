@@ -2,9 +2,7 @@
 
 namespace yii2mod\user\tests\forms;
 
-use Yii;
 use yii2mod\user\models\BaseUserModel;
-use yii2mod\user\models\LoginForm;
 use yii2mod\user\models\SignupForm;
 use yii2mod\user\tests\TestCase;
 

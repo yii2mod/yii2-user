@@ -1,6 +1,6 @@
 <?php
 
-use app\components\Migration;
+use yii\db\Migration;
 
 class m161109_112016_rename_user_table extends Migration
 {

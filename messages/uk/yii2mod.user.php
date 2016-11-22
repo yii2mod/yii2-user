@@ -43,5 +43,5 @@ return [
     'This email address has already been taken.' => 'Цей адрес електронної пошти вже зайнятий.',
     'This username has already been taken.' => 'Це ім\'я вже зайняте.',
     'Status' => 'Статус',
-    'lastLogin' => 'Дата останнього входу'
+    'lastLogin' => 'Дата останнього входу',
 ];

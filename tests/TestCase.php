@@ -2,8 +2,8 @@
 
 namespace yii2mod\user\tests;
 
-use yii\helpers\ArrayHelper;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii2mod\user\tests\data\Controller;
 
 /**
@@ -29,6 +29,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
     /**
      * Populates Yii::$app with a new application
      * The application will be destroyed on tearDown() automatically.
+     *
      * @param array $config The application configuration, if needed
      * @param string $appClass name of the application class to create
      */
@@ -48,27 +49,27 @@ class TestCase extends \PHPUnit_Framework_TestCase
                 ],
                 'request' => [
                     'hostInfo' => 'http://domain.com',
-                    'scriptUrl' => 'index.php'
+                    'scriptUrl' => 'index.php',
                 ],
                 'mailer' => [
                     'class' => 'yii\swiftmailer\Mailer',
                     'useFileTransport' => true,
                     'htmlLayout' => false,
-                    'viewPath' => __DIR__ . '/data/mail'
+                    'viewPath' => __DIR__ . '/data/mail',
                 ],
                 'i18n' => [
                     'translations' => [
                         'yii2mod.user' => [
                             'class' => 'yii\i18n\PhpMessageSource',
                             'basePath' => '@yii2mod/user/messages',
-                        ]
-                    ]
-                ]
+                        ],
+                    ],
+                ],
             ],
             'params' => [
                 'adminEmail' => 'admin@mail.com',
-                'user.passwordResetTokenExpire' => 3600
-            ]
+                'user.passwordResetTokenExpire' => 3600,
+            ],
         ], $config));
     }
 
@@ -89,8 +90,9 @@ class TestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param array $config controller config.
-     * @return Controller controller instance.
+     * @param array $config controller config
+     *
+     * @return Controller controller instance
      */
     protected function createController($config = [])
     {
@@ -127,7 +129,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
             'passwordHash' => Yii::$app->getSecurity()->generatePasswordHash('password'),
             'email' => 'demo@mail.com',
             'createdAt' => time(),
-            'updatedAt' => time()
+            'updatedAt' => time(),
         ])->execute();
     }
 }

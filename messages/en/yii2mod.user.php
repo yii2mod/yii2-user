@@ -43,5 +43,5 @@ return [
     'This email address has already been taken.' => 'This email address has already been taken.',
     'This username has already been taken.' => 'This username has already been taken.',
     'Status' => 'Status',
-    'lastLogin' => 'Date of last login'
+    'lastLogin' => 'Date of last login',
 ];

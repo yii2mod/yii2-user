@@ -3,12 +3,13 @@
 namespace yii2mod\user\actions;
 
 use Yii;
-use yii\web\BadRequestHttpException;
 use yii\base\InvalidParamException;
+use yii\web\BadRequestHttpException;
 use yii2mod\user\traits\EventTrait;
 
 /**
  * Class PasswordResetAction
+ *
  * @package yii2mod\user\actions
  */
 class PasswordResetAction extends Action
@@ -38,7 +39,7 @@ class PasswordResetAction extends Action
     public $modelClass = 'yii2mod\user\models\ResetPasswordForm';
 
     /**
-     * @var string message to be set on success.
+     * @var string message to be set on success
      */
     public $successMessage = 'New password was saved.';
 
@@ -46,6 +47,7 @@ class PasswordResetAction extends Action
      * Reset password for a user.
      *
      * @param $token
+     *
      * @return string|\yii\web\Response
      *
      * @throws \yii\web\BadRequestHttpException
@@ -63,11 +65,12 @@ class PasswordResetAction extends Action
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
             $this->trigger(self::EVENT_AFTER_RESET, $event);
             Yii::$app->getSession()->setFlash('success', Yii::t('yii2mod.user', $this->successMessage));
+
             return $this->redirectTo(Yii::$app->getHomeUrl());
         }
 
         return $this->controller->render($this->view, [
-            'model' => $model
+            'model' => $model,
         ]);
     }
 }

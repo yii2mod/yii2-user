@@ -2,12 +2,12 @@
 
 namespace yii2mod\user\tests\forms;
 
-use Yii;
 use yii2mod\user\models\LoginForm;
 use yii2mod\user\tests\TestCase;
 
 /**
  * Class LoginFormTest
+ *
  * @package yii2mod\user\tests
  */
 class LoginFormTest extends TestCase

@@ -9,6 +9,7 @@ use yii2mod\user\traits\EventTrait;
 
 /**
  * Class RequestPasswordResetAction
+ *
  * @package yii2mod\user\actions
  */
 class RequestPasswordResetAction extends Action
@@ -63,6 +64,7 @@ class RequestPasswordResetAction extends Action
 
         if (Yii::$app->request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
+
             return ActiveForm::validate($model);
         }
 
@@ -70,6 +72,7 @@ class RequestPasswordResetAction extends Action
             if ($model->sendEmail()) {
                 $this->trigger(self::EVENT_AFTER_REQUEST, $event);
                 Yii::$app->getSession()->setFlash('success', Yii::t('yii2mod.user', $this->successMessage));
+
                 return $this->redirectTo(Yii::$app->getHomeUrl());
             } else {
                 Yii::$app->getSession()->setFlash('error', Yii::t('yii2mod.user', $this->errorMessage));

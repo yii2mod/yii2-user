@@ -6,6 +6,7 @@ use Yii;
 
 /**
  * Class LoginAction
+ *
  * @package yii2mod\user\actions
  */
 class LogoutAction extends Action

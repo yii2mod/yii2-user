@@ -26,7 +26,7 @@ class m150828_085134_init_user_tables extends Migration
             'status' => $this->smallInteger()->notNull()->defaultValue(1),
             'createdAt' => $this->integer()->notNull(),
             'updatedAt' => $this->integer()->notNull(),
-            'lastLogin' => $this->integer()
+            'lastLogin' => $this->integer(),
         ], $tableOptions);
     }
 

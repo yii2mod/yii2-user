@@ -10,18 +10,17 @@ use yii\web\IdentityInterface;
 /**
  * Class BaseUserModel
  *
- * @property integer $id
+ * @property int $id
  * @property string $username
  * @property string $passwordHash
  * @property string $passwordResetToken
  * @property string $email
  * @property string $authKey
- * @property integer $status
- * @property integer $createdAt
- * @property integer $updatedAt
- * @property integer $lastLogin
+ * @property int $status
+ * @property int $createdAt
+ * @property int $updatedAt
+ * @property int $lastLogin
  * @property string $password write-only password
- *
  */
 class BaseUserModel extends ActiveRecord implements IdentityInterface
 {
@@ -64,8 +63,8 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
             'timestamp' => [
                 'class' => 'yii\behaviors\TimestampBehavior',
                 'createdAtAttribute' => 'createdAt',
-                'updatedAtAttribute' => 'updatedAt'
-            ]
+                'updatedAtAttribute' => 'updatedAt',
+            ],
         ];
     }
 
@@ -101,6 +100,7 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
      * Finds user by email
      *
      * @param $email
+     *
      * @return null|static
      */
     public static function findByEmail($email)
@@ -112,6 +112,7 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
      * Finds user by password reset token
      *
      * @param string $token password reset token
+     *
      * @return static|null
      */
     public static function findByPasswordResetToken($token)
@@ -130,7 +131,8 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
      * Finds out if password reset token is valid
      *
      * @param string $token password reset token
-     * @return boolean
+     *
+     * @return bool
      */
     public static function isPasswordResetTokenValid($token)
     {
@@ -172,7 +174,7 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
      *
      * @param  string $password password to validate
      *
-     * @return boolean if password provided is valid for current user
+     * @return bool if password provided is valid for current user
      */
     public function validatePassword($password)
     {

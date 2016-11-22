@@ -3,26 +3,30 @@
 namespace yii2mod\user\tests\actions;
 
 use Yii;
+use yii2mod\user\actions\LoginAction;
 use yii2mod\user\actions\LogoutAction;
 use yii2mod\user\tests\TestCase;
-use yii2mod\user\actions\LoginAction;
 
 /**
  * Class LogoutActionTest
+ *
  * @package yii2mod\user\tests\actions
  */
 class LogoutActionTest extends TestCase
 {
     /**
      * Runs the action.
+     *
      * @param $actionClass
      * @param $id
      * @param array $config
-     * @return array|\yii\web\Response response.
+     *
+     * @return array|\yii\web\Response response
      */
     protected function runAction($actionClass, $id, array $config = [])
     {
         $action = new $actionClass($id, $this->createController(), $config);
+
         return $action->run();
     }
 
@@ -34,8 +38,8 @@ class LogoutActionTest extends TestCase
         Yii::$app->request->bodyParams = [
             'LoginForm' => [
                 'email' => 'demo@mail.com',
-                'password' => 'password'
-            ]
+                'password' => 'password',
+            ],
         ];
         $this->runAction(LoginAction::className(), 'login');
         $this->assertFalse(Yii::$app->user->isGuest);

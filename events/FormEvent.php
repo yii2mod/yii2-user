@@ -7,6 +7,7 @@ use yii\base\Model;
 
 /**
  * Class FormEvent
+ *
  * @package yii2mod\user\events
  */
 class FormEvent extends Event

@@ -11,14 +11,17 @@ use yii2mod\user\tests\TestCase;
 
 /**
  * Class RequestPasswordResetActionTest
+ *
  * @package yii2mod\user\tests\actions
  */
 class RequestPasswordResetActionTest extends TestCase
 {
     /**
      * Runs the action.
+     *
      * @param array $config
-     * @return array|\yii\web\Response response.
+     *
+     * @return array|\yii\web\Response response
      */
     protected function runAction(array $config = [])
     {
@@ -41,8 +44,8 @@ class RequestPasswordResetActionTest extends TestCase
         $email = 'demo@mail.com';
         Yii::$app->request->bodyParams = [
             'PasswordResetRequestForm' => [
-                'email' => $email
-            ]
+                'email' => $email,
+            ],
         ];
         $this->runAction();
         $this->assertTrue(file_exists($this->getMessageFile()));
@@ -55,8 +58,8 @@ class RequestPasswordResetActionTest extends TestCase
         Yii::$app->request->bodyParams = [
             'ResetPasswordForm' => [
                 'password' => 'new-password',
-                'confirmPassword' => 'new-password'
-            ]
+                'confirmPassword' => 'new-password',
+            ],
         ];
         $passwordResetResponse = (new PasswordResetAction('reset-password', $this->createController()))->run($user->passwordResetToken);
 

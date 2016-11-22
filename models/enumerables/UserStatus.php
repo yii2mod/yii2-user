@@ -6,6 +6,7 @@ use yii2mod\enum\helpers\BaseEnum;
 
 /**
  * Class UserStatus
+ *
  * @package yii2mod\user\models\enumerables
  */
 class UserStatus extends BaseEnum
@@ -15,6 +16,6 @@ class UserStatus extends BaseEnum
 
     public static $list = [
         self::ENABLED => 'Active',
-        self::DISABLED => 'Inactive'
+        self::DISABLED => 'Inactive',
     ];
 }

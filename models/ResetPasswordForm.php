@@ -2,12 +2,13 @@
 
 namespace yii2mod\user\models;
 
+use Yii;
 use yii\base\InvalidParamException;
 use yii\base\Model;
-use Yii;
 
 /**
  * Class ResetPasswordForm
+ *
  * @package yii2mod\user\models
  */
 class ResetPasswordForm extends Model
@@ -62,14 +63,14 @@ class ResetPasswordForm extends Model
     public function attributeLabels()
     {
         return [
-            'password' => Yii::t('yii2mod.user', 'Password')
+            'password' => Yii::t('yii2mod.user', 'Password'),
         ];
     }
 
     /**
      * Resets password.
      *
-     * @return boolean if password was reset.
+     * @return bool if password was reset
      */
     public function resetPassword()
     {

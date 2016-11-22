@@ -2,11 +2,12 @@
 
 namespace yii2mod\user\models;
 
-use yii\base\Model;
 use Yii;
+use yii\base\Model;
 
 /**
  * Class SignupForm
+ *
  * @package yii2mod\user\models
  */
 class SignupForm extends Model

@@ -8,6 +8,7 @@ use yii\widgets\ActiveForm;
 
 /**
  * Class LoginAction
+ *
  * @package yii2mod\user\actions
  */
 class LoginAction extends Action
@@ -23,7 +24,7 @@ class LoginAction extends Action
     public $modelClass = 'yii2mod\user\models\LoginForm';
 
     /**
-     * @var string layout the name of the layout to be applied to this view.
+     * @var string layout the name of the layout to be applied to this view
      */
     public $layout;
 
@@ -54,6 +55,7 @@ class LoginAction extends Action
 
         if (Yii::$app->request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
+
             return ActiveForm::validate($model);
         }
 
@@ -62,7 +64,7 @@ class LoginAction extends Action
         }
 
         return $this->controller->render($this->view, [
-            'model' => $model
+            'model' => $model,
         ]);
     }
 }

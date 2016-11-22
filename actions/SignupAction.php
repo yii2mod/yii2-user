@@ -9,6 +9,7 @@ use yii2mod\user\traits\EventTrait;
 
 /**
  * Class SignupAction
+ *
  * @package yii2mod\user\actions
  */
 class SignupAction extends Action
@@ -53,6 +54,7 @@ class SignupAction extends Action
 
         if (Yii::$app->request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
+
             return ActiveForm::validate($model);
         }
 
@@ -64,7 +66,7 @@ class SignupAction extends Action
         }
 
         return $this->controller->render($this->view, [
-            'model' => $model
+            'model' => $model,
         ]);
     }
 }

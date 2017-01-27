@@ -30,7 +30,7 @@ class LoginForm extends Model
     /**
      * @var bool|BaseUserModel
      */
-    private $_user = false;
+    protected $_user = false;
 
     /**
      * @inheritdoc

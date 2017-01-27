@@ -21,7 +21,7 @@ class ResetPasswordForm extends Model
     /**
      * @var BaseUserModel
      */
-    private $_user;
+    protected $_user;
 
     /**
      * Creates a form model given a token.

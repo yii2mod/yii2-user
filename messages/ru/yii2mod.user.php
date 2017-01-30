@@ -31,7 +31,7 @@ return [
     'Password reset for {0}' => 'Восстановление пароля для {0}',
     'Check your email for further instructions.' => 'Проверьте свою электронную почту для получения дальнейших инструкций.',
     'Sorry, we are unable to reset password for email provided.' => 'К сожалению, мы не можем сбросить пароль для этой электронной почты.',
-    'Incorrect username or password.' => 'Неверное имя пользователя или пароль.',
+    'Incorrect email or password.' => 'Неправильный email или пароль.',
     'User ID' => 'ID Пользователя',
     'Reset password' => 'Сброс пароля',
     'Please choose your new password:' => 'Пожалуйста, введите ваш новый пароль:',

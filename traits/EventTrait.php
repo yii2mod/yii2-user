@@ -19,6 +19,6 @@ trait EventTrait
      */
     protected function getFormEvent(Model $form)
     {
-        return \Yii::createObject(['class' => FormEvent::className(), 'form' => $form]);
+        return \Yii::createObject(['class' => FormEvent::class, 'form' => $form]);
     }
 }

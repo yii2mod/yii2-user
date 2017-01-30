@@ -30,7 +30,7 @@ class LoginForm extends Model
     /**
      * @var bool|BaseUserModel
      */
-    protected $_user = false;
+    protected $user = false;
 
     /**
      * @inheritdoc
@@ -39,8 +39,9 @@ class LoginForm extends Model
     {
         return [
             [['email', 'password'], 'required'],
-            ['rememberMe', 'boolean'],
+            ['email', 'email'],
             ['password', 'validatePassword'],
+            ['rememberMe', 'boolean'],
         ];
     }
 
@@ -67,7 +68,7 @@ class LoginForm extends Model
             if ($user && $user->status === BaseUserModel::STATUS_DELETED) {
                 $this->addError('password', Yii::t('yii2mod.user', 'Your account has been deactivated, please contact support for details.'));
             } elseif (!$user || !$user->validatePassword($this->password)) {
-                $this->addError('password', Yii::t('yii2mod.user', 'Incorrect username or password.'));
+                $this->addError('password', Yii::t('yii2mod.user', 'Incorrect email or password.'));
             }
         }
     }
@@ -93,10 +94,10 @@ class LoginForm extends Model
      */
     public function getUser()
     {
-        if ($this->_user === false) {
-            $this->_user = BaseUserModel::findByEmail($this->email);
+        if ($this->user === false) {
+            $this->user = BaseUserModel::findByEmail($this->email);
         }
 
-        return $this->_user;
+        return $this->user;
     }
 }

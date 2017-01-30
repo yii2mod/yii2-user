@@ -31,7 +31,7 @@ return [
     'Password reset for {0}' => 'Password reset for {0}',
     'Check your email for further instructions.' => 'Check your email for further instructions.',
     'Sorry, we are unable to reset password for email provided.' => 'Sorry, we are unable to reset password for email provided.',
-    'Incorrect username or password.' => 'Incorrect username or password.',
+    'Incorrect email or password.' => 'Incorrect email or password.',
     'User ID' => 'User ID',
     'Reset password' => 'Reset password',
     'Please choose your new password:' => 'Please choose your new password:',

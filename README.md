@@ -195,6 +195,42 @@ You may use the following events:
     }
 ```
 
+# Console commands
+
+## Setup
+To enable console commands, you need to add module into console config of you app.
+`/config/console.php` in yii2-app-basic template, or `/console/config/main.php` in yii2-app-advanced.
+
+```php
+
+    return [
+        'id' => 'app-console',
+        'modules' => [
+            'user' => [
+                'class' => 'yii2mod\user\ConsoleModule',
+            ],
+        ],
+        ...
+
+```
+
+## Available console actions
+
+- **user/delete** - Deletes a user.
+
+
+### user/delete
+Deletes a user.
+
+```sh
+
+./yii user/delete <email>
+
+- email (required): string
+  User email address
+
+```
+
 Internationalization
 ----------------------
 

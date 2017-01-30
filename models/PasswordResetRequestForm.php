@@ -18,10 +18,7 @@ class PasswordResetRequestForm extends Model
     public $email;
 
     /**
-     * Returns the validation rules for attributes.
-     *
-     * Validation rules are used by [[validate()]] to check if attribute values are valid.
-     * Child classes may override this method to declare different validation rules.
+     * @inheritdoc
      */
     public function rules()
     {

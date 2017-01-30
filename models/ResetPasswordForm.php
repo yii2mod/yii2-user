@@ -21,13 +21,13 @@ class ResetPasswordForm extends Model
     /**
      * @var BaseUserModel
      */
-    protected $_user;
+    protected $user;
 
     /**
      * Creates a form model given a token.
      *
-     * @param  string $token
-     * @param  array $config name-value pairs that will be used to initialize the object properties
+     * @param string $token
+     * @param array $config name-value pairs that will be used to initialize the object properties
      *
      * @throws \yii\base\InvalidParamException if token is empty or not valid
      */
@@ -37,9 +37,9 @@ class ResetPasswordForm extends Model
             throw new InvalidParamException('Password reset token cannot be blank.');
         }
 
-        $this->_user = BaseUserModel::findByPasswordResetToken($token);
+        $this->user = BaseUserModel::findByPasswordResetToken($token);
 
-        if (!$this->_user) {
+        if (!$this->user) {
             throw new InvalidParamException('Wrong password reset token.');
         }
 
@@ -74,7 +74,7 @@ class ResetPasswordForm extends Model
      */
     public function resetPassword()
     {
-        $user = $this->_user;
+        $user = $this->user;
         $user->setPassword($this->password);
         $user->removePasswordResetToken();
 

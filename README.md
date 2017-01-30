@@ -210,7 +210,6 @@ To enable console commands, you need to add module into console config of you ap
                 'class' => 'yii2mod\user\ConsoleModule',
             ],
         ],
-        ...
 
 ```
 
@@ -218,16 +217,11 @@ To enable console commands, you need to add module into console config of you ap
 
 - **user/delete** - Deletes a user.
 
-
-### user/delete
-Deletes a user.
-
 ```sh
 
 ./yii user/delete <email>
 
 - email (required): string
-  User email address
 
 ```
 

@@ -6,7 +6,7 @@ use Yii;
 use yii\web\Response;
 use yii2mod\user\actions\PasswordResetAction;
 use yii2mod\user\actions\RequestPasswordResetAction;
-use yii2mod\user\models\BaseUserModel;
+use yii2mod\user\models\UserModel;
 use yii2mod\user\tests\TestCase;
 
 /**
@@ -54,7 +54,7 @@ class RequestPasswordResetActionTest extends TestCase
         $this->assertContains($email, $emailMessage);
 
         // try to reset password
-        $user = BaseUserModel::find()->one();
+        $user = UserModel::find()->one();
         Yii::$app->request->bodyParams = [
             'ResetPasswordForm' => [
                 'password' => 'new-password',
@@ -63,7 +63,7 @@ class RequestPasswordResetActionTest extends TestCase
         ];
         $passwordResetResponse = (new PasswordResetAction('reset-password', $this->createController()))->run($user->passwordResetToken);
 
-        $this->assertInstanceOf(Response::className(), $passwordResetResponse);
+        $this->assertInstanceOf(Response::class, $passwordResetResponse);
     }
 
     /**

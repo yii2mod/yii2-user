@@ -6,9 +6,10 @@ use Yii;
 use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use yii2mod\user\models\enums\UserStatus;
 
 /**
- * Class BaseUserModel
+ * Class UserModel
  *
  * @property int $id
  * @property string $username
@@ -22,17 +23,12 @@ use yii\web\IdentityInterface;
  * @property int $lastLogin
  * @property string $password write-only password
  */
-class BaseUserModel extends ActiveRecord implements IdentityInterface
+class UserModel extends ActiveRecord implements IdentityInterface
 {
     /**
-     * Deleted Status
+     * @var string plain password
      */
-    const STATUS_DELETED = 0;
-
-    /**
-     * Active Status
-     */
-    const STATUS_ACTIVE = 1;
+    public $plainPassword;
 
     /**
      * @inheritdoc
@@ -48,9 +44,32 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            [['username', 'email'], 'required'],
+            ['email', 'unique', 'message' => Yii::t('yii2mod.user', 'This email address has already been taken.')],
+            ['username', 'unique', 'message' => Yii::t('yii2mod.user', 'This username has already been taken.')],
+            ['username', 'string', 'min' => 2, 'max' => 255],
+            ['email', 'email'],
+            ['email', 'string', 'max' => 255],
+            ['plainPassword', 'string', 'min' => 6],
+            ['plainPassword', 'required', 'on' => 'create'],
+            ['status', 'default', 'value' => UserStatus::ACTIVE],
+            ['status', 'in', 'range' => UserStatus::getConstantsByName()],
             [['lastLogin'], 'integer', 'integerOnly' => true],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'username' => Yii::t('yii2mod.user', 'Username'),
+            'email' => Yii::t('yii2mod.user', 'Email'),
+            'status' => Yii::t('yii2mod.user', 'Status'),
+            'createdAt' => Yii::t('yii2mod.user', 'Registration time'),
+            'plainPassword' => Yii::t('yii2mod.user', 'Password'),
+            'lastLogin' => Yii::t('yii2mod.user', 'Last login'),
         ];
     }
 
@@ -66,6 +85,23 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
                 'updatedAtAttribute' => 'updatedAt',
             ],
         ];
+    }
+
+    /**
+     * Create user
+     *
+     * @return self|null the saved model or null if saving fails
+     */
+    public function create()
+    {
+        if ($this->validate()) {
+            $this->setPassword($this->plainPassword);
+            $this->generateAuthKey();
+
+            return $this->save() ? $this : null;
+        }
+
+        return null;
     }
 
     /**
@@ -93,7 +129,7 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['username' => $username, 'status' => UserStatus::ACTIVE]);
     }
 
     /**
@@ -123,7 +159,7 @@ class BaseUserModel extends ActiveRecord implements IdentityInterface
 
         return static::findOne([
             'passwordResetToken' => $token,
-            'status' => self::STATUS_ACTIVE,
+            'status' => UserStatus::ACTIVE,
         ]);
     }
 

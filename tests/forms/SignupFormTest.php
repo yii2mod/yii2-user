@@ -2,8 +2,8 @@
 
 namespace yii2mod\user\tests\forms;
 
-use yii2mod\user\models\BaseUserModel;
 use yii2mod\user\models\SignupForm;
+use yii2mod\user\models\UserModel;
 use yii2mod\user\tests\TestCase;
 
 /**
@@ -49,6 +49,6 @@ class SignupFormTest extends TestCase
         $model->password = 'password';
         $model->username = 'demo2';
 
-        $this->assertInstanceOf(BaseUserModel::className(), $model->signup());
+        $this->assertInstanceOf(UserModel::class, $model->signup());
     }
 }

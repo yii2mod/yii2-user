@@ -35,14 +35,14 @@ class SignupForm extends Model
         return [
             ['username', 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => BaseUserModel::class, 'message' => Yii::t('yii2mod.user', 'This username has already been taken.')],
+            ['username', 'unique', 'targetClass' => UserModel::class, 'message' => Yii::t('yii2mod.user', 'This username has already been taken.')],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => BaseUserModel::class, 'message' => Yii::t('yii2mod.user', 'This email address has already been taken.')],
+            ['email', 'unique', 'targetClass' => UserModel::class, 'message' => Yii::t('yii2mod.user', 'This email address has already been taken.')],
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
@@ -64,7 +64,7 @@ class SignupForm extends Model
     /**
      * Signs user up.
      *
-     * @return BaseUserModel|null the saved model or null if saving fails
+     * @return UserModel|null the saved model or null if saving fails
      */
     public function signup()
     {
@@ -72,7 +72,7 @@ class SignupForm extends Model
             return null;
         }
 
-        $user = new BaseUserModel();
+        $user = new UserModel();
         $user->username = $this->username;
         $user->email = $this->email;
         $user->setPassword($this->password);

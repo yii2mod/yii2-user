@@ -5,7 +5,7 @@ namespace yii2mod\user\commands;
 use Yii;
 use yii\console\Controller;
 use yii\helpers\Console;
-use yii2mod\user\models\BaseUserModel;
+use yii2mod\user\models\UserModel;
 
 /**
  * Class DeleteController
@@ -24,7 +24,7 @@ class DeleteController extends Controller
     public function actionIndex($email)
     {
         if ($this->confirm(Yii::t('yii2mod.user', 'Are you sure you want to delete this user?'))) {
-            $user = BaseUserModel::findByEmail($email);
+            $user = UserModel::findByEmail($email);
             if ($user === null) {
                 $this->stdout(Yii::t('yii2mod.user', 'User is not found') . "\n", Console::FG_RED);
             } else {

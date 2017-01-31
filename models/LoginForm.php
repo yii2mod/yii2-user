@@ -4,6 +4,7 @@ namespace yii2mod\user\models;
 
 use Yii;
 use yii\base\Model;
+use yii2mod\user\models\enums\UserStatus;
 
 /**
  * Login Form
@@ -28,7 +29,7 @@ class LoginForm extends Model
     public $rememberMe = true;
 
     /**
-     * @var bool|BaseUserModel
+     * @var bool|UserModel
      */
     protected $user = false;
 
@@ -65,7 +66,7 @@ class LoginForm extends Model
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
-            if ($user && $user->status === BaseUserModel::STATUS_DELETED) {
+            if ($user && $user->status === UserStatus::DELETED) {
                 $this->addError('password', Yii::t('yii2mod.user', 'Your account has been deactivated, please contact support for details.'));
             } elseif (!$user || !$user->validatePassword($this->password)) {
                 $this->addError('password', Yii::t('yii2mod.user', 'Incorrect email or password.'));
@@ -90,12 +91,12 @@ class LoginForm extends Model
     /**
      * Finds user by [[email]]
      *
-     * @return BaseUserModel|null
+     * @return UserModel|null
      */
     public function getUser()
     {
         if ($this->user === false) {
-            $this->user = BaseUserModel::findByEmail($this->email);
+            $this->user = UserModel::findByEmail($this->email);
         }
 
         return $this->user;

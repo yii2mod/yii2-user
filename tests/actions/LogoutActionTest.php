@@ -41,11 +41,11 @@ class LogoutActionTest extends TestCase
                 'password' => 'password',
             ],
         ];
-        $this->runAction(LoginAction::className(), 'login');
+        $this->runAction(LoginAction::class, 'login');
         $this->assertFalse(Yii::$app->user->isGuest);
 
         // logout
-        $this->runAction(LogoutAction::className(), 'logout');
+        $this->runAction(LogoutAction::class, 'logout');
         $this->assertTrue(Yii::$app->user->isGuest);
     }
 }

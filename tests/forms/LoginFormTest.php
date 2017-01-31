@@ -21,10 +21,20 @@ class LoginFormTest extends TestCase
         $this->assertFalse($model->login());
     }
 
-    public function testLoginWrongPassword()
+    public function testLoginWrongEmail()
     {
         $model = new LoginForm([
             'email' => 'demo',
+            'password' => 'wrong_password',
+        ]);
+        $this->assertFalse($model->login());
+        $this->assertArrayHasKey('email', $model->errors);
+    }
+
+    public function testLoginWrongPassword()
+    {
+        $model = new LoginForm([
+            'email' => 'demo@mail.com',
             'password' => 'wrong_password',
         ]);
         $this->assertFalse($model->login());

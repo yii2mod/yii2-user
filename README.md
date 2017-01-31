@@ -259,6 +259,17 @@ To enable console commands, you need to add module into console config of you ap
 
 ```
 
+- **user/update-password** - Updates user's password to given.
+
+```sh
+
+./yii user/update-password <email> <password>
+
+- email (required): string
+- password (required): string
+
+```
+
 Internationalization
 ----------------------
 

@@ -258,4 +258,18 @@ class UserModel extends ActiveRecord implements IdentityInterface
     {
         $this->updateAttributes(['lastLogin' => time()]);
     }
+
+    /**
+     * Resets password.
+     *
+     * @param string $password
+     *
+     * @return bool
+     */
+    public function resetPassword($password)
+    {
+        $this->setPassword($password);
+
+        return $this->save(true, ['passwordHash']);
+    }
 }

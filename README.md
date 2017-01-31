@@ -227,6 +227,28 @@ To enable console commands, you need to add module into console config of you ap
 
 ```
 
+- **user/role/assign** - Assign role to the user.
+
+```sh
+
+./yii user/role/assign <roleName> <email>
+
+- roleName (required): string
+- email (required): string
+
+```
+
+- **user/role/revoke** - Revoke role from the user.
+
+```sh
+
+./yii user/role/revoke <roleName> <email>
+
+- roleName (required): string
+- email (required): string
+
+```
+
 - **user/delete** - Deletes a user.
 
 ```sh

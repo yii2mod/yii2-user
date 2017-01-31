@@ -9,6 +9,7 @@ use yii2mod\user\models\UserModel;
 
 /**
  * Class ChangePasswordController
+ *
  * @package yii2mod\user\commands
  */
 class ChangePasswordController extends Controller
@@ -18,6 +19,7 @@ class ChangePasswordController extends Controller
      *
      * @param $email
      * @param $password
+     *
      * @return int
      */
     public function actionIndex($email, $password)

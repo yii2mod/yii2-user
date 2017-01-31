@@ -32,7 +32,7 @@ class CreateController extends Controller
         ]);
 
         if ($user->create()) {
-            $this->stdout(Yii::t('yii2mod.user', 'User has been created') . "!\n", Console::FG_GREEN);
+            $this->stdout(Yii::t('yii2mod.user', 'User has been created.') . "!\n", Console::FG_GREEN);
         } else {
             $this->stdout(Yii::t('yii2mod.user', 'Please fix the following errors:') . "\n", Console::FG_RED);
             foreach ($user->errors as $errors) {

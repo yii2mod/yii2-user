@@ -8,18 +8,16 @@ use yii\helpers\Console;
 use yii2mod\user\models\UserModel;
 
 /**
- * Class UpdatePasswordController
- *
+ * Class ChangePasswordController
  * @package yii2mod\user\commands
  */
-class UpdatePasswordController extends Controller
+class ChangePasswordController extends Controller
 {
     /**
      * Updates user's password to given.
      *
      * @param $email
      * @param $password
-     *
      * @return int
      */
     public function actionIndex($email, $password)

@@ -26,12 +26,12 @@ class DeleteController extends Controller
         if ($this->confirm(Yii::t('yii2mod.user', 'Are you sure you want to delete this user?'))) {
             $user = UserModel::findByEmail($email);
             if ($user === null) {
-                $this->stdout(Yii::t('yii2mod.user', 'User is not found') . "\n", Console::FG_RED);
+                $this->stdout(Yii::t('yii2mod.user', 'User is not found.') . "\n", Console::FG_RED);
             } else {
                 if ($user->delete()) {
-                    $this->stdout(Yii::t('yii2mod.user', 'User has been deleted') . "\n", Console::FG_GREEN);
+                    $this->stdout(Yii::t('yii2mod.user', 'User has been deleted.') . "\n", Console::FG_GREEN);
                 } else {
-                    $this->stdout(Yii::t('yii2mod.user', 'Error occurred while deleting user') . "\n", Console::FG_RED);
+                    $this->stdout(Yii::t('yii2mod.user', 'Error occurred while deleting user.') . "\n", Console::FG_RED);
                 }
             }
         }

@@ -4,6 +4,7 @@ namespace yii2mod\user\models;
 
 use Yii;
 use yii\base\Model;
+use yii2mod\user\models\enums\UserStatus;
 
 /**
  * Class PasswordResetRequestForm
@@ -18,10 +19,7 @@ class PasswordResetRequestForm extends Model
     public $email;
 
     /**
-     * Returns the validation rules for attributes.
-     *
-     * Validation rules are used by [[validate()]] to check if attribute values are valid.
-     * Child classes may override this method to declare different validation rules.
+     * @inheritdoc
      */
     public function rules()
     {
@@ -35,7 +33,7 @@ class PasswordResetRequestForm extends Model
             ],
             ['email', 'exist',
                 'targetClass' => Yii::$app->user->identityClass,
-                'filter' => ['status' => BaseUserModel::STATUS_ACTIVE],
+                'filter' => ['status' => UserStatus::ACTIVE],
                 'message' => Yii::t('yii2mod.user', 'Your account has been deactivated, please contact support for details.'),
             ],
         ];
@@ -58,7 +56,7 @@ class PasswordResetRequestForm extends Model
      */
     public function sendEmail()
     {
-        $user = BaseUserModel::findOne(['status' => BaseUserModel::STATUS_ACTIVE, 'email' => $this->email]);
+        $user = UserModel::findOne(['status' => UserStatus::ACTIVE, 'email' => $this->email]);
 
         if (!empty($user)) {
             $user->generatePasswordResetToken();

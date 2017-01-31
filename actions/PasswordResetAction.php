@@ -64,7 +64,7 @@ class PasswordResetAction extends Action
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
             $this->trigger(self::EVENT_AFTER_RESET, $event);
-            Yii::$app->getSession()->setFlash('success', Yii::t('yii2mod.user', $this->successMessage));
+            Yii::$app->getSession()->setFlash('success', $this->successMessage);
 
             return $this->redirectTo(Yii::$app->getHomeUrl());
         }

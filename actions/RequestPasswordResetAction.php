@@ -71,11 +71,11 @@ class RequestPasswordResetAction extends Action
         if ($load && $model->validate()) {
             if ($model->sendEmail()) {
                 $this->trigger(self::EVENT_AFTER_REQUEST, $event);
-                Yii::$app->getSession()->setFlash('success', Yii::t('yii2mod.user', $this->successMessage));
+                Yii::$app->getSession()->setFlash('success', $this->successMessage);
 
                 return $this->redirectTo(Yii::$app->getHomeUrl());
             } else {
-                Yii::$app->getSession()->setFlash('error', Yii::t('yii2mod.user', $this->errorMessage));
+                Yii::$app->getSession()->setFlash('error', $this->errorMessage);
             }
         }
 

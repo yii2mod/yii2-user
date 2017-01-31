@@ -45,7 +45,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
                     'dsn' => 'sqlite::memory:',
                 ],
                 'user' => [
-                    'identityClass' => 'yii2mod\user\models\BaseUserModel',
+                    'identityClass' => 'yii2mod\user\models\UserModel',
                 ],
                 'request' => [
                     'hostInfo' => 'http://domain.com',

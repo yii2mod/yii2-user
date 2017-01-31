@@ -29,14 +29,15 @@ class LoginAction extends Action
     public $layout;
 
     /**
-     * Initializes the object.
+     * @inheritdoc
      */
     public function init()
     {
+        parent::init();
+
         if ($this->layout !== null) {
             $this->controller->layout = $this->layout;
         }
-        parent::init();
     }
 
     /**

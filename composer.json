@@ -20,6 +20,7 @@
         }
     ],
     "require": {
+        "php": ">=5.6",
         "yiisoft/yii2": ">=2.0.8",
         "yiisoft/yii2-swiftmailer": "*",
         "yii2mod/yii2-enum": "*"

@@ -18,7 +18,7 @@ class LoginActionTest extends TestCase
      *
      * @param array $config
      *
-     * @return array|\yii\web\Response response
+     * @return string
      */
     protected function runAction(array $config = [])
     {

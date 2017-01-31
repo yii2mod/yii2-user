@@ -2,6 +2,7 @@
 
 namespace yii2mod\user\traits;
 
+use Yii;
 use yii\base\Model;
 use yii2mod\user\events\FormEvent;
 
@@ -19,6 +20,6 @@ trait EventTrait
      */
     protected function getFormEvent(Model $form)
     {
-        return \Yii::createObject(['class' => FormEvent::className(), 'form' => $form]);
+        return Yii::createObject(['class' => FormEvent::class, 'form' => $form]);
     }
 }

@@ -63,10 +63,10 @@ php yii migrate/up --migrationPath=@vendor/yii2mod/yii2-user/migrations
    'user.passwordResetTokenExpire' => 3600
 ]
 ```
-3) Your need to create the UserModel class that be extends of [BaseUserModel](https://github.com/yii2mod/yii2-user/blob/master/models/BaseUserModel.php) and configure the property `identityClass` for `user` component in your project configuration, for example:
+3) Your need to create the UserModel class that be extends of [UserModel](https://github.com/yii2mod/yii2-user/blob/master/models/BaseUserModel.php) and configure the property `identityClass` for `user` component in your project configuration, for example:
 ```php
 'user' => [
-    'identityClass' => 'app\models\UserModel',
+    'identityClass' => 'yii2mod\user\models\UserModel',
     // for update last login date for user, you can call the `afterLogin` event as follows
     'on afterLogin' => function ($event) {
         $event->identity->updateLastLogin();
@@ -193,6 +193,81 @@ You may use the following events:
             ],
         ];
     }
+```
+
+# Console commands
+
+## Setup
+To enable console commands, you need to add module into console config of you app.
+`/config/console.php` in yii2-app-basic template, or `/console/config/main.php` in yii2-app-advanced.
+
+```php
+
+    return [
+        'id' => 'app-console',
+        'modules' => [
+            'user' => [
+                'class' => 'yii2mod\user\ConsoleModule',
+            ],
+        ],
+
+```
+
+## Available console actions
+
+- **user/create** - Creates a new user.
+
+```sh
+
+./yii user/create <email> <username> <password>
+
+- email (required): string
+- username (required): string
+- password (required): string
+
+```
+
+- **user/role/assign** - Assign role to the user.
+
+```sh
+
+./yii user/role/assign <roleName> <email>
+
+- roleName (required): string
+- email (required): string
+
+```
+
+- **user/role/revoke** - Revoke role from the user.
+
+```sh
+
+./yii user/role/revoke <roleName> <email>
+
+- roleName (required): string
+- email (required): string
+
+```
+
+- **user/delete** - Deletes a user.
+
+```sh
+
+./yii user/delete <email>
+
+- email (required): string
+
+```
+
+- **user/update-password** - Updates user's password to given.
+
+```sh
+
+./yii user/update-password <email> <password>
+
+- email (required): string
+- password (required): string
+
 ```
 
 Internationalization

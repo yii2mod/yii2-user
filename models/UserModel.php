@@ -7,6 +7,7 @@ use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 use yii2mod\user\models\enums\UserStatus;
+use yii2mod\user\traits\EventTrait;
 
 /**
  * Class UserModel
@@ -25,6 +26,11 @@ use yii2mod\user\models\enums\UserStatus;
  */
 class UserModel extends ActiveRecord implements IdentityInterface
 {
+    use EventTrait;
+
+    const BEFORE_CREATE = 'beforeCreate';
+    const AFTER_CREATE = 'afterCreate';
+
     /**
      * @var string plain password
      */
@@ -94,11 +100,18 @@ class UserModel extends ActiveRecord implements IdentityInterface
      */
     public function create()
     {
+        $event = $this->getCreateUserEvent($this);
+        $this->trigger(self::BEFORE_CREATE, $event);
+
         if ($this->validate()) {
             $this->setPassword($this->plainPassword);
             $this->generateAuthKey();
 
-            return $this->save() ? $this : null;
+            if ($this->save()) {
+                $this->trigger(self::AFTER_CREATE, $event);
+
+                return $this;
+            }
         }
 
         return null;

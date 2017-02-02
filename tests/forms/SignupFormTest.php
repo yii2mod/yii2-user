@@ -9,7 +9,7 @@ use yii2mod\user\tests\TestCase;
 /**
  * Class SignupFormTest
  *
- * @package yii2mod\user\tests
+ * @package yii2mod\user\tests\forms
  */
 class SignupFormTest extends TestCase
 {

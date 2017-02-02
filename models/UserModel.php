@@ -28,7 +28,16 @@ class UserModel extends ActiveRecord implements IdentityInterface
 {
     use EventTrait;
 
+    /**
+     * Event is triggered before creating a user.
+     * Triggered with \yii2mod\user\events\CreateUserEvent.
+     */
     const BEFORE_CREATE = 'beforeCreate';
+
+    /**
+     * Event is triggered after creating a user.
+     * Triggered with \yii2mod\user\events\CreateUserEvent.
+     */
     const AFTER_CREATE = 'afterCreate';
 
     /**
@@ -60,7 +69,6 @@ class UserModel extends ActiveRecord implements IdentityInterface
             ['plainPassword', 'required', 'on' => 'create'],
             ['status', 'default', 'value' => UserStatus::ACTIVE],
             ['status', 'in', 'range' => UserStatus::getConstantsByName()],
-            [['lastLogin'], 'integer', 'integerOnly' => true],
         ];
     }
 

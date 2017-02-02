@@ -8,7 +8,7 @@ use yii2mod\user\tests\TestCase;
 /**
  * Class LoginFormTest
  *
- * @package yii2mod\user\tests
+ * @package yii2mod\user\tests\forms
  */
 class LoginFormTest extends TestCase
 {

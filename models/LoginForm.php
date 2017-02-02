@@ -61,15 +61,18 @@ class LoginForm extends Model
     /**
      * Validates the password.
      * This method serves as the inline validation for password.
+     *
+     * @param $attribute
+     * @param $params
      */
-    public function validatePassword()
+    public function validatePassword($attribute, $params)
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
             if ($user && $user->status === UserStatus::DELETED) {
-                $this->addError('password', Yii::t('yii2mod.user', 'Your account has been deactivated, please contact support for details.'));
+                $this->addError($attribute, Yii::t('yii2mod.user', 'Your account has been deactivated, please contact support for details.'));
             } elseif (!$user || !$user->validatePassword($this->password)) {
-                $this->addError('password', Yii::t('yii2mod.user', 'Incorrect email or password.'));
+                $this->addError($attribute, Yii::t('yii2mod.user', 'Incorrect email or password.'));
             }
         }
     }

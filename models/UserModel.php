@@ -104,25 +104,37 @@ class UserModel extends ActiveRecord implements IdentityInterface
     /**
      * Create user
      *
-     * @return self|null the saved model or null if saving fails
+     * @return null|UserModel the saved model or null if saving fails
+     *
+     * @throws \Exception
      */
     public function create()
     {
-        $event = $this->getCreateUserEvent($this);
-        $this->trigger(self::BEFORE_CREATE, $event);
+        $transaction = $this->getDb()->beginTransaction();
 
-        if ($this->validate()) {
+        try {
+            $event = $this->getCreateUserEvent($this);
+            $this->trigger(self::BEFORE_CREATE, $event);
+
             $this->setPassword($this->plainPassword);
             $this->generateAuthKey();
 
-            if ($this->save()) {
-                $this->trigger(self::AFTER_CREATE, $event);
+            if (!$this->save()) {
+                $transaction->rollBack();
 
-                return $this;
+                return null;
             }
-        }
 
-        return null;
+            $this->trigger(self::AFTER_CREATE, $event);
+
+            $transaction->commit();
+
+            return $this;
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            Yii::warning($e->getMessage());
+            throw $e;
+        }
     }
 
     /**

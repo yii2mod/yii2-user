@@ -28,6 +28,11 @@ class SignupForm extends Model
     public $password;
 
     /**
+     * @var UserModel
+     */
+    protected $user;
+
+    /**
      * @inheritdoc
      */
     public function rules()
@@ -72,13 +77,20 @@ class SignupForm extends Model
             return null;
         }
 
-        $user = new UserModel();
-        $user->username = $this->username;
-        $user->email = $this->email;
-        $user->setPassword($this->password);
-        $user->generateAuthKey();
-        $user->lastLogin = time();
+        $this->user = new UserModel();
+        $this->user->setAttributes($this->attributes);
+        $this->user->setPassword($this->password);
+        $this->user->generateAuthKey();
+        $this->user->lastLogin = time();
 
-        return $user->save() ? $user : null;
+        return $this->user->save() ? $this->user : null;
+    }
+
+    /**
+     * @return UserModel|null
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

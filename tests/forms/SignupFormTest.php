@@ -39,6 +39,7 @@ class SignupFormTest extends TestCase
         $model->username = 'demo';
 
         $this->assertNull($model->signup());
+        $this->assertNull($model->getUser());
         $this->assertArrayHasKey('email', $model->errors);
     }
 
@@ -50,5 +51,6 @@ class SignupFormTest extends TestCase
         $model->username = 'demo2';
 
         $this->assertInstanceOf(UserModel::class, $model->signup());
+        $this->assertInstanceOf(UserModel::class, $model->getUser());
     }
 }

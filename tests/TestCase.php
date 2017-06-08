@@ -111,25 +111,25 @@ class TestCase extends \PHPUnit\Framework\TestCase
         $db->createCommand()->createTable('user', [
             'id' => 'pk',
             'username' => 'string not null unique',
-            'authKey' => 'string(32) not null',
-            'passwordHash' => 'string not null',
-            'passwordResetToken' => 'string unique',
+            'auth_key' => 'string(32) not null',
+            'password_hash' => 'string not null',
+            'password_reset_token' => 'string unique',
             'email' => 'string not null unique',
             'status' => 'integer not null default 1',
-            'createdAt' => 'integer not null',
-            'updatedAt' => 'integer not null',
-            'lastLogin' => 'integer',
+            'created_at' => 'integer not null',
+            'updated_at' => 'integer not null',
+            'last_login' => 'integer',
         ])->execute();
 
         // Data :
 
         $db->createCommand()->insert('user', [
             'username' => 'demo',
-            'authKey' => Yii::$app->getSecurity()->generateRandomString(),
-            'passwordHash' => Yii::$app->getSecurity()->generatePasswordHash('password'),
+            'auth_key' => Yii::$app->getSecurity()->generateRandomString(),
+            'password_hash' => Yii::$app->getSecurity()->generatePasswordHash('password'),
             'email' => 'demo@mail.com',
-            'createdAt' => time(),
-            'updatedAt' => time(),
+            'created_at' => time(),
+            'updated_at' => time(),
         ])->execute();
     }
 }

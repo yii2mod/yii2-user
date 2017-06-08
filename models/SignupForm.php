@@ -80,8 +80,8 @@ class SignupForm extends Model
         $this->user = new UserModel();
         $this->user->setAttributes($this->attributes);
         $this->user->setPassword($this->password);
+        $this->user->setLastLogin(time());
         $this->user->generateAuthKey();
-        $this->user->lastLogin = time();
 
         return $this->user->save() ? $this->user : null;
     }

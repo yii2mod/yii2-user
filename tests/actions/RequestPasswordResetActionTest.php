@@ -61,7 +61,7 @@ class RequestPasswordResetActionTest extends TestCase
                 'confirmPassword' => 'new-password',
             ],
         ];
-        $passwordResetResponse = (new PasswordResetAction('reset-password', $this->createController()))->run($user->passwordResetToken);
+        $passwordResetResponse = (new PasswordResetAction('reset-password', $this->createController()))->run($user->password_reset_token);
 
         $this->assertInstanceOf(Response::class, $passwordResetResponse);
     }

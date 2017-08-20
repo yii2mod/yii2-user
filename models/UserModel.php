@@ -4,7 +4,9 @@ namespace yii2mod\user\models;
 
 use Yii;
 use yii\base\NotSupportedException;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
 use yii2mod\user\models\enums\UserStatus;
 use yii2mod\user\traits\EventTrait;
@@ -14,14 +16,14 @@ use yii2mod\user\traits\EventTrait;
  *
  * @property int $id
  * @property string $username
- * @property string $passwordHash
- * @property string $passwordResetToken
+ * @property string $password_hash
+ * @property string $password_reset_token
  * @property string $email
- * @property string $authKey
+ * @property string $auth_key
  * @property int $status
- * @property int $createdAt
- * @property int $updatedAt
- * @property int $lastLogin
+ * @property int $created_at
+ * @property int $updated_at
+ * @property int $last_login
  * @property string $password write-only password
  */
 class UserModel extends ActiveRecord implements IdentityInterface
@@ -81,9 +83,9 @@ class UserModel extends ActiveRecord implements IdentityInterface
             'username' => Yii::t('yii2mod.user', 'Username'),
             'email' => Yii::t('yii2mod.user', 'Email'),
             'status' => Yii::t('yii2mod.user', 'Status'),
-            'createdAt' => Yii::t('yii2mod.user', 'Registration time'),
+            'created_at' => Yii::t('yii2mod.user', 'Registration time'),
+            'last_login' => Yii::t('yii2mod.user', 'Last login'),
             'plainPassword' => Yii::t('yii2mod.user', 'Password'),
-            'lastLogin' => Yii::t('yii2mod.user', 'Last login'),
         ];
     }
 
@@ -93,11 +95,7 @@ class UserModel extends ActiveRecord implements IdentityInterface
     public function behaviors()
     {
         return [
-            'timestamp' => [
-                'class' => 'yii\behaviors\TimestampBehavior',
-                'createdAtAttribute' => 'createdAt',
-                'updatedAtAttribute' => 'updatedAt',
-            ],
+            TimestampBehavior::class,
         ];
     }
 
@@ -191,7 +189,7 @@ class UserModel extends ActiveRecord implements IdentityInterface
         }
 
         return static::findOne([
-            'passwordResetToken' => $token,
+            'password_reset_token' => $token,
             'status' => UserStatus::ACTIVE,
         ]);
     }
@@ -208,8 +206,9 @@ class UserModel extends ActiveRecord implements IdentityInterface
         if (empty($token)) {
             return false;
         }
-        $timestamp = (int)substr($token, strrpos($token, '_') + 1);
-        $expire = Yii::$app->params['user.passwordResetTokenExpire'];
+
+        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
+        $expire = ArrayHelper::getValue(Yii::$app->params, 'user.passwordResetTokenExpire', 3600);
 
         return $timestamp + $expire >= time();
     }
@@ -227,7 +226,7 @@ class UserModel extends ActiveRecord implements IdentityInterface
      */
     public function getAuthKey()
     {
-        return $this->authKey;
+        return $this->auth_key;
     }
 
     /**
@@ -247,7 +246,7 @@ class UserModel extends ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
-        return Yii::$app->getSecurity()->validatePassword($password, $this->passwordHash);
+        return Yii::$app->getSecurity()->validatePassword($password, $this->password_hash);
     }
 
     /**
@@ -257,7 +256,7 @@ class UserModel extends ActiveRecord implements IdentityInterface
      */
     public function setPassword($password)
     {
-        $this->passwordHash = Yii::$app->getSecurity()->generatePasswordHash($password);
+        $this->password_hash = Yii::$app->getSecurity()->generatePasswordHash($password);
     }
 
     /**
@@ -265,7 +264,7 @@ class UserModel extends ActiveRecord implements IdentityInterface
      */
     public function generateAuthKey()
     {
-        $this->authKey = Yii::$app->getSecurity()->generateRandomString();
+        $this->auth_key = Yii::$app->getSecurity()->generateRandomString();
     }
 
     /**
@@ -273,7 +272,7 @@ class UserModel extends ActiveRecord implements IdentityInterface
      */
     public function generatePasswordResetToken()
     {
-        $this->passwordResetToken = Yii::$app->getSecurity()->generateRandomString() . '_' . time();
+        $this->password_reset_token = Yii::$app->getSecurity()->generateRandomString() . '_' . time();
     }
 
     /**
@@ -281,7 +280,15 @@ class UserModel extends ActiveRecord implements IdentityInterface
      */
     public function removePasswordResetToken()
     {
-        $this->passwordResetToken = null;
+        $this->password_reset_token = null;
+    }
+
+    /**
+     * @param $lastLogin
+     */
+    public function setLastLogin($lastLogin)
+    {
+        $this->last_login = $lastLogin;
     }
 
     /**
@@ -289,7 +296,7 @@ class UserModel extends ActiveRecord implements IdentityInterface
      */
     public function updateLastLogin()
     {
-        $this->updateAttributes(['lastLogin' => time()]);
+        $this->updateAttributes(['last_login' => time()]);
     }
 
     /**
@@ -303,6 +310,6 @@ class UserModel extends ActiveRecord implements IdentityInterface
     {
         $this->setPassword($password);
 
-        return $this->save(true, ['passwordHash']);
+        return $this->save(true, ['password_hash']);
     }
 }
